@@ -36,6 +36,10 @@
             file="Source/Components/ProfileComponent.cpp"/>
       <FILE id="gOLXz3" name="ProfileComponent.h" compile="0" resource="0"
             file="Source/Components/ProfileComponent.h"/>
+      <FILE id="atevYB" name="SettingsComponent.cpp" compile="1" resource="0"
+            file="Source/Components/SettingsComponent.cpp"/>
+      <FILE id="ShWblK" name="SettingsComponent.h" compile="0" resource="0"
+            file="Source/Components/SettingsComponent.h"/>
     </GROUP>
     <GROUP id="{4066D5E9-ABB5-2866-1B14-EE1C05A3213B}" name="Settings">
       <FILE id="o7VBCO" name="SettingsManager.cpp" compile="1" resource="0"

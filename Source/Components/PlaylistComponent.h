@@ -1,4 +1,5 @@
 #pragma once
+
 #include <JuceHeader.h>
 
 #include "NowPlayingComponent.h"

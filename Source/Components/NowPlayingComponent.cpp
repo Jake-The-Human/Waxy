@@ -1,5 +1,5 @@
 #include "NowPlayingComponent.h"
-#include "../Logic/WaxyState.h"
+#include "Logic/WaxyState.h"
 #include "GuiConstants.h"
 
 constexpr auto PLAY = "Play";
