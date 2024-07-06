@@ -1,6 +1,7 @@
 #include "NowPlayingComponent.h"
 #include "Logic/WaxyState.h"
 #include "GuiConstants.h"
+#include "Logic/UrlRequests.h"
 
 constexpr auto PLAY = "Play";
 constexpr auto PAUSE = "Pause";
@@ -59,6 +60,10 @@ void NowPlayingComponent::changeListenerCallback(juce::ChangeBroadcaster *source
 
 void NowPlayingComponent::buttonClicked(juce::Button *button)
 {
+    UrlRequests::allAlbums();
+    auto id = UrlRequests::getIndexes();
+    auto t = UrlRequests::getMusicDirectory("c");
+  
     if (button == &playButton_)
     {
         if (playButton_.getButtonText().compare(PLAY) && waxyState_->isPlaying())

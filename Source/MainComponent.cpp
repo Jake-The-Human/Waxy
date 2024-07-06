@@ -1,5 +1,6 @@
 #include "MainComponent.h"
 #include "Logic/WaxyState.h"
+#include "Logic/UrlRequests.h"
 #include <memory>
 
 //==============================================================================
@@ -23,6 +24,8 @@ MainComponent::MainComponent() : waxyState_(std::make_shared<WaxyState>()), desk
         // Specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
     }
+
+    UrlRequests::ping();
 }
 
 MainComponent::~MainComponent()
