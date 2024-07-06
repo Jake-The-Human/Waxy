@@ -4,7 +4,7 @@
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
               bundleIdentifier="com.flakyshakespear.Waxy" companyCopyright="Aggressively free until we sell out..."
               companyWebsite="https://github.com/Jake-The-Human/Waxy" userNotes="Aggressively free until we sell out..."
-              headerPath="Source;~/JUCE/modules;../../Source">
+              headerPath="Source;~/JUCE/modules;../../Source" cppLanguageStandard="20">
   <MAINGROUP id="HVv5ie" name="Waxy">
     <GROUP id="{6A742EEF-805B-6C59-5C6B-40CB8DC4FD98}" name="Components">
       <FILE id="XehGzX" name="DesktopComponent.cpp" compile="1" resource="0"
