@@ -69,5 +69,6 @@ CMakeUserPresets.json
 
 **/Builds
 **/JuceLibraryCode
+airsonic/
 .cache
 compile_commands.json
