@@ -1,2 +1,5 @@
 #!/bin/bash
-bear -- make -C ./Builds/LinuxMakefile -j4 $1
+cd ./Builds/LinuxMakefile
+bear -- make -j4 $1
+cd -
+cp ./Builds/LinuxMakefile/compile_commands.json .
