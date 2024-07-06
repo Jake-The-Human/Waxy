@@ -2,6 +2,7 @@
 
 #include <JuceHeader.h>
 #include "Song.h"
+#include <vector>
 
 namespace UrlRequests
 {
@@ -17,5 +18,5 @@ namespace UrlRequests
   juce::String getMusicFolders();
   juce::var allAlbums();
   Song getSong(int id);
-  juce::var getRandomSongs(int numberOfSongs);
+  std::vector<Song> getRandomSongs(int numberOfSongs);
 }

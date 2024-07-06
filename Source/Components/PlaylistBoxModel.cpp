@@ -17,5 +17,5 @@ void PlayListBoxModel::paintListBoxItem(int rowNumber, juce::Graphics &g, int wi
     g.setColour(juce::Colours::black);
     g.setFont(height * 0.7f);
     auto songTitle = rowNumber < songs_.size() ? std::get<SongData>(songs_.at(rowNumber)).title : "";
-    g.drawText("Item " + songTitle, 5, 0, width, height, juce::Justification::centredLeft, true);
+    g.drawText("Item " + std::string(songTitle), 5, 0, width, height, juce::Justification::centredLeft, true);
 }

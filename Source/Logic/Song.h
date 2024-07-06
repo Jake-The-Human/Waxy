@@ -8,17 +8,17 @@
 #include <variant>
 
 struct SongData {
-    int32_t id{-1};
-    int32_t albumId{-1};
-    int32_t artistId{-1};
-    int32_t parent{-1};
+    std::string_view id{};
+    std::string_view albumId{};
+    std::string_view artistId{};
+    std::string_view parent{};
     int32_t coverArt{-1};
     int32_t duration{-1};
     int32_t bitRate{-1};
     int32_t size{-1};
     bool isDir{false};
     bool isVideo{false};
-    std::string title{};
+    std::string_view title{};
     std::string album{};
     std::string artist{};
     std::string suffix{};
