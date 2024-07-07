@@ -76,7 +76,7 @@ bool UrlRequests::ping()
   auto error = parser.parse(makeRequest("ping").toStdString()).get(object);
   if (error)
   {
-    return false;
+    jassertfalse;
   }
 
   simdjson::dom::object responceObject;
@@ -84,14 +84,13 @@ bool UrlRequests::ping()
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   std::string_view status;
   error = responceObject["status"].get(status);
   if (error)
   {
-    return false;
+    jassertfalse;
   }
 
   return status == "ok";
@@ -105,7 +104,7 @@ juce::String UrlRequests::getMusicFolders()
   auto error = parser.parse(makeRequest("getMusicFolders").toStdString());
   if (error)
   {
-    return "";
+    jassertfalse;
   }
 
   simdjson::dom::object responceObject;
@@ -113,14 +112,13 @@ juce::String UrlRequests::getMusicFolders()
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   std::string_view id;
   error = responceObject["id"].get(id);
   if (error)
   {
-    return "";
+    jassertfalse;
   }
   return juce::String(id.data());
 }
@@ -147,7 +145,6 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object responceObject;
@@ -155,7 +152,6 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object indexesObject;
@@ -163,7 +159,6 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   SubsonicIndexes result;
@@ -175,7 +170,6 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   for (auto obj : indexArray)
@@ -214,7 +208,6 @@ juce::var UrlRequests::getMusicDirectory(std::string_view id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object responceObject;
@@ -222,10 +215,9 @@ juce::var UrlRequests::getMusicDirectory(std::string_view id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
+
   // not sure what to do with the results.
-  jassertfalse;
   return {};
 }
 
@@ -243,7 +235,6 @@ Song UrlRequests::getSong(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object responceObject;
@@ -251,7 +242,6 @@ Song UrlRequests::getSong(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object songObject;
@@ -259,7 +249,6 @@ Song UrlRequests::getSong(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::array artistsArray;
@@ -267,7 +256,6 @@ Song UrlRequests::getSong(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   std::vector<Song::Helper> artists;
@@ -283,7 +271,6 @@ Song UrlRequests::getSong(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   std::vector<Song::Helper> albumArtists;
@@ -331,7 +318,6 @@ std::vector<Genre> UrlRequests::getGenres()
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object responceObject;
@@ -339,7 +325,6 @@ std::vector<Genre> UrlRequests::getGenres()
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object genresObject;
@@ -347,7 +332,6 @@ std::vector<Genre> UrlRequests::getGenres()
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::array genreArray;
@@ -355,7 +339,6 @@ std::vector<Genre> UrlRequests::getGenres()
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   std::vector<Genre> result;
@@ -387,9 +370,8 @@ std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
   if (error)
   {
     jassertfalse;
-    return {};
   }
-  jassertfalse;
+
   return {};
 }
 
@@ -406,9 +388,8 @@ Artist UrlRequests::getArtist(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
-  jassertfalse;
+
   return {};
 }
 
@@ -425,9 +406,8 @@ Album UrlRequests::getAlbum(std::string id)
   if (error)
   {
     jassertfalse;
-    return {};
   }
-  jassertfalse;
+
   return {};
 }
 
@@ -454,9 +434,8 @@ ArtistInfo UrlRequests::getArtistInfo2(std::string_view id, int64_t count, bool 
   if (error)
   {
     jassertfalse;
-    return {};
   }
-  jassertfalse;
+
   return {};
 }
 
@@ -477,7 +456,6 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object responceObject;
@@ -485,7 +463,6 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::object randomSongObject;
@@ -493,7 +470,6 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   simdjson::dom::array songList;
@@ -501,7 +477,6 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   if (error)
   {
     jassertfalse;
-    return {};
   }
 
   std::vector<Song> resultList(songList.size());
