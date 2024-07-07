@@ -2,6 +2,7 @@
 #include "Logic/Song.h"
 #include "ThirdParty/simdjson.h"
 #include "juce_core/juce_core.h"
+#include "juce_core/system/juce_PlatformDefs.h"
 #include <string_view>
 
 juce::String stringViewToJuceString(const std::string_view &sv)
@@ -353,7 +354,7 @@ std::vector<Genre> UrlRequests::getGenres()
   return result;
 }
 
-std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
+Artists UrlRequests::getArtists(std::string musicFolderId)
 {
   juce::StringPairArray queryParams;
   if (!musicFolderId.empty())
@@ -363,7 +364,6 @@ std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
 
   simdjson::dom::parser parser;
   simdjson::dom::object object;
-
   auto error =
       parser.parse(makeRequest("getArtists", queryParams).toStdString())
           .get(object);
@@ -371,8 +371,38 @@ std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
   {
     jassertfalse;
   }
+  
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error)
+  {
+    jassertfalse;
+  }
 
-  return {};
+  simdjson::dom::object artistsObject;
+  error = responceObject["artists"].get(artistsObject);
+  if (error)
+  {
+    jassertfalse;
+  }
+
+  Artists artists;
+  artists.ignoredArticles = artistsObject["ignoredArticles"].get_string();
+
+  simdjson::dom::array indexArray;
+  error = artistsObject["index"].get(indexArray);
+  if (error)
+  {
+    jassertfalse;
+  }
+
+  artists.index.resize(indexArray.size());
+  for (int i = 0; auto obj : indexArray)
+  {
+    artists.index[i++].name = obj["name"].get_string();
+  }
+
+  return artists;
 }
 
 Artist UrlRequests::getArtist(std::string id)
@@ -389,6 +419,29 @@ Artist UrlRequests::getArtist(std::string id)
   {
     jassertfalse;
   }
+  
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error)
+  {
+    jassertfalse;
+  }
+
+  simdjson::dom::object artistObject;
+  error = responceObject["artist"].get(artistObject);
+  if (error)
+  {
+    jassertfalse;
+  }
+
+  simdjson::dom::array albumArray;
+  error = artistObject["album"].get(albumArray);
+  if (error)
+  {
+    jassertfalse;
+  }
+
+  Artist::ArtistHelper artistHelper;
 
   return {};
 }
@@ -407,7 +460,12 @@ Album UrlRequests::getAlbum(std::string id)
   {
     jassertfalse;
   }
-
+  
+  // Album result;
+  // result.id = artistObject["id"].get_string();
+  // result.created = artistObject["created"].get_string();
+  // result.artistId = artistObject["artistId"].get_string();
+  // result.artist = stringViewToJuceString(artistObject["artist"].get_string());
   return {};
 }
 

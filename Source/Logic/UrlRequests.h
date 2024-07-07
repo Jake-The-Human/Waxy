@@ -15,7 +15,7 @@ namespace UrlRequests
   SubsonicIndexes getIndexes(std::string musicFolderId = "", std::string ifModifiedSince = "");
   juce::var getMusicDirectory(std::string_view id);
   std::vector<Genre> getGenres();
-  std::vector<Artist> getArtists(std::string musicFolderId = "");
+  Artists getArtists(std::string musicFolderId = "");
   Artist getArtist(std::string id);
   Album getAlbum(std::string id);
   Song getSong(std::string id);
@@ -25,3 +25,18 @@ namespace UrlRequests
   // Media retrieval
   void stream(std::string id, int maxBitRate = 0, std::string format = "");
 }
+
+// seprate the responce and request. bellow will be the class that makes the responce
+class URLFetcher : public juce::ThreadPoolJob
+{
+  public:
+    virtual ~URLFetcher() = default;
+    URLFetcher() : juce::ThreadPoolJob("URLFetcher") {}
+    juce::ThreadPoolJob::JobStatus runJob() override
+    {
+      return {};
+    }
+  private:
+   juce::String url;
+   std::function<void(const juce::String&)> callback;
+};
