@@ -1,6 +1,13 @@
 #include "UrlRequests.h"
 #include "Logic/Song.h"
 #include "ThirdParty/simdjson.h"
+#include "juce_core/juce_core.h"
+#include <string_view>
+
+juce::String stringViewToJuceString(const std::string_view& sv)
+{
+  return { static_cast<juce::CharPointer_UTF8>(sv.data()), sv.size() };
+}
 
 juce::String
 makeRequest(const juce::String &requestType,
@@ -177,7 +184,7 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
     {
       index.artist.emplace_back(SubsonicIndexes::SubsonicIndex::Artist{
                                   .id = artist["id"].get_string(),
-                                  .name = juce::String(artist["name"].get_c_str()),
+                                  .name = stringViewToJuceString(artist["name"].get_string()),
                                   .albumCount = artist["albumCount"].get_int64()
                                 });
     }
@@ -234,8 +241,70 @@ Song UrlRequests::getSong(std::string id)
   {
     return {};
   }
+  simdjson::dom::object songObject;
+  error = responceObject["song"].get(songObject);
+  if (error)
+  {
+    return {};
+  }
+  
+  simdjson::dom::array artistsArray;
+  error = songObject["artists"].get(artistsArray);
+  if (error)
+  {
+    return {};
+  }
 
-  return {};
+  std::vector<Song::Helper> artists;
+  for (auto a : artistsArray)
+  {
+    artists.push_back(Song::Helper{
+                    .id = a["id"].get_string(),
+                    .name = stringViewToJuceString(a["name"].get_string())
+                  });
+  }
+  
+  simdjson::dom::array albumArtistsArray;
+  error = songObject["albumArtists"].get(albumArtistsArray);
+  if (error)
+  {
+    return {};
+  }
+  
+  std::vector<Song::Helper> albumArtists;
+  for (auto a : albumArtistsArray)
+  {
+    albumArtists.push_back(Song::Helper{
+                    .id = a["id"].get_string(),
+                    .name = stringViewToJuceString(a["name"].get_string())
+                  });
+  }
+
+  return Song{
+    .id = songObject["id"].get_string(),
+    .album = stringViewToJuceString(songObject["album"].get_string()),
+    .albumId = songObject["albumId"].get_string(),
+    .artist = stringViewToJuceString(songObject["artist"].get_string()),
+    .artistId = songObject["artistId"].get_string(),
+    .artists = artists,
+    .displayArtist = stringViewToJuceString(songObject["displayArtist"].get_string()),
+    .albumArtists = albumArtists,
+    .displayAlbumArtist = stringViewToJuceString(songObject["displayAlbumArtist"].get_string()),
+    .bitRate = songObject["bitRate"].get_int64(),
+    .contentType = songObject["contentType"].get_string(),
+    .duration = songObject["duration"].get_int64(),
+    .isDir = songObject["isDir"].get_bool(),
+    .isVideo = songObject["isVideo"].get_bool(),
+    .parent = songObject["parent"].get_string(),
+    .path = songObject["path"].get_string(),
+    .size = songObject["size"].get_int64(),
+    .suffix = songObject["suffix"].get_string(),
+    .title = stringViewToJuceString(songObject["title"].get_string()),
+    .track = songObject["track"].get_int64(),
+    .type = songObject["type"].get_string(),
+    .year = songObject["year"].get_int64(),
+    .musicBrainzId = songObject["musicBrainzId"].get_string()
+  };
 }
 
 std::vector<Genre> UrlRequests::getGenres()
@@ -386,7 +455,7 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
           .id = songObject["id"].get_string(),
           .albumId = songObject["albumId"].get_string(),
           .artistId = songObject["artistId"].get_string(),
-          .title = juce::String(songObject["title"].get_c_str())};
+          .title = stringViewToJuceString(songObject["title"].get_string())};
     }
   }
   return resultList;

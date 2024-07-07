@@ -6,21 +6,21 @@
 #include <string_view>
 #include <vector>
 
-struct Song {
+struct Song
+{
+    struct Helper
+    {
+        std::string_view id;
+        juce::String name;
+    };
     std::string_view id;
     juce::String album;
     std::string_view albumId;
     juce::String artist;
     std::string_view artistId;
-    struct {
-        std::string_view id;
-        juce::String name;
-    } artists;
+    std::vector<Helper> artists;
     juce::String displayArtist;
-    struct {
-        std::string_view id;
-        juce::String name;
-    } albumArtists;
+    std::vector<Helper> albumArtists;
     juce::String displayAlbumArtist;
     int64_t bitRate;
     std::string_view contentType;
@@ -37,47 +37,58 @@ struct Song {
     int64_t track;
     std::string_view type;
     int64_t year;
-    std::string_view musicBrainId;
+    std::string_view musicBrainzId;
 };
 
-struct Album {
-    std::string_view id;
-    juce::String name;
-    std::string_view coverArt;
-    std::string_view created;
-    int64_t duration;
-    juce::String artist;
-    std::string_view artistId;
+struct Album
+{
+    struct AlbumHeader
+    {
+        std::string_view id;
+        juce::String name;
+        std::string_view coverArt;
+        std::string_view created;
+        int64_t duration;
+        juce::String artist;
+        std::string_view artistId;
+    } header;
     std::vector<Song> trackList;
     uint64_t songCount() const { return trackList.size(); }
 };
 
-struct Artist {
-    std::string_view id;
-    juce::String name;
-    std::string_view converArt;
-    std::string_view created;
-    int64_t duration;
-    juce::String artist;
-    std::string_view artistId;
-    std::vector<Album> albums;
+struct Artist
+{
+    struct ArtistHeader
+    {
+        std::string_view id;
+        juce::String name;
+        std::string_view converArt;
+        std::string_view created;
+        int64_t duration;
+        juce::String artist;
+        std::string_view artistId;
+    } header;
+    std::vector<Album::AlbumHeader> albums;
     uint64_t albumCount() const { return albums.size(); }
 };
 
-struct Genre {
+struct Genre
+{
     int64_t songCount;
     int64_t albumCount;
     juce::String genre;
 };
 
-struct SimilarArtist {
+struct SimilarArtist
+{
     std::string_view id;
     std::string_view coverArt;
     juce::String name;
     int64_t albumCount;
 };
 
-struct ArtistInfo {
+struct ArtistInfo
+{
     juce::String biography;
     juce::String musicBrainzId;
     juce::String lastFmUrl;
@@ -87,10 +98,12 @@ struct ArtistInfo {
     std::vector<SimilarArtist> similarArtist;
 };
 
-
-struct SubsonicIndexes {
-    struct SubsonicIndex {
-        struct Artist {
+struct SubsonicIndexes
+{
+    struct SubsonicIndex
+    {
+        struct Artist
+        {
             std::string_view id;
             juce::String name;
             int64_t albumCount;

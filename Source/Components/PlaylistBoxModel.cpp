@@ -19,8 +19,8 @@ void PlayListBoxModel::paintListBoxItem(int rowNumber, juce::Graphics &g, int wi
     if (rowIsSelected)
         g.fillAll(juce::Colours::lightblue);
 
-    g.setColour(juce::Colours::black);
+    // g.setColour(juce::Colours::black);
     g.setFont(height * 0.7f);
     auto songTitle = rowNumber < songs_.size() ? songs_.at(rowNumber).title : "";
-    g.drawText("Item " + songTitle, 5, 0, width, height, juce::Justification::centredLeft, true);
+    g.drawText(songTitle, 5, 0, width, height, juce::Justification::centredLeft, true);
 }
