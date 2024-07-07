@@ -4,16 +4,6 @@
 
 FileListComponent::FileListComponent()
 {
-    Song one = SongData{.title="Song Title 1", .artist="Artist 1"};
-    Song two = SongData{.title="Song Title 2", .artist="Artist 2"};
-    Song three = SongData{.title="Song Title 3", .artist="Artist 3"};
-    songs_ = {
-        one,
-        two,
-        three,
-        // Add more songs as needed
-    };
-
     tableModel_ = std::make_unique<FileListBoxModel>(songs_);
     tableListBox_.setModel(tableModel_.get());
     tableListBox_.getHeader().addColumn("Title", 1, 200);

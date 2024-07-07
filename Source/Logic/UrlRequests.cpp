@@ -11,7 +11,7 @@ makeRequest(const juce::String &requestType,
   queryParamsInternal.set("u", "admin");
   queryParamsInternal.set("p", "admin");
   queryParamsInternal.set(
-      "c", "test"); // A unique string identifying the client application.
+      "c", "Waxy"); // A unique string identifying the client application.
   queryParamsInternal.set("f", "json");
 
   juce::URL url("http://localhost:4747/rest/" + requestType);
@@ -116,7 +116,7 @@ juce::String UrlRequests::getMusicFolders()
   return juce::String(id.data());
 }
 
-juce::String UrlRequests::getIndexes(std::string musicFolderId,
+SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
                                      std::string ifModifiedSince)
 {
   juce::StringPairArray queryParams;
@@ -137,7 +137,7 @@ juce::String UrlRequests::getIndexes(std::string musicFolderId,
           .get(object);
   if (error)
   {
-    return "";
+    return {};
   }
 
   simdjson::dom::object responceObject;
@@ -147,32 +147,93 @@ juce::String UrlRequests::getIndexes(std::string musicFolderId,
     return {};
   }
 
-  return "";
+  simdjson::dom::object indexesObject;
+  error = responceObject["indexes"].get(indexesObject);
+  if (error) {
+    return {};
+  }
+
+  SubsonicIndexes result;
+  result.lastModified = indexesObject["lastModified"].get_int64();
+  result.ignoredArtilcles = indexesObject["ignoredArticles"].get_string();
+
+  simdjson::dom::array indexArray;
+  error = indexesObject["index"].get(indexArray);
+  if (error)
+  {
+    return {};
+  }
+
+  for (auto obj : indexArray) {
+    SubsonicIndexes::SubsonicIndex index;
+    index.name = obj["name"].get_string();
+    simdjson::dom::array artistsArray;
+    error = obj["artist"].get(artistsArray);
+    if (error)
+    {
+      continue;
+    }
+    for (auto artist : artistsArray)
+    {
+      index.artist.emplace_back(SubsonicIndexes::SubsonicIndex::Artist{
+                                  .id = artist["id"].get_string(),
+                                  .name = juce::String(artist["name"].get_c_str()),
+                                  .albumCount = artist["albumCount"].get_int64()
+                                });
+    }
+    result.index.push_back(index);
+  }
+
+  return result;
 }
 
-juce::var UrlRequests::getMusicDirectory(juce::String id)
+juce::var UrlRequests::getMusicDirectory(std::string_view id)
+{
+  juce::StringPairArray queryParams;
+  queryParams.set("id", std::string(id));
+  
+  simdjson::dom::parser parser;
+  simdjson::dom::object object;
+  auto error =
+      parser.parse(makeRequest("getMusicDirectory", queryParams).toStdString())
+          .get(object);
+  if (error)
+  {
+    return {};
+  }
+  
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error)
+  {
+    return {};
+  }
+  // not sure what to do with the results.
+  return {};
+}
+
+Song UrlRequests::getSong(std::string id)
 {
   juce::StringPairArray queryParams;
   queryParams.set("id", id);
-  return juce::JSON::fromString(makeRequest("getMusicDirectory", queryParams));
-}
-
-juce::var UrlRequests::allAlbums()
-{
-  juce::StringPairArray queryParams;
-  queryParams.set("type", "newest");
 
   // Create the URL object
-  return juce::JSON::fromString(makeRequest("getAlbumList2", queryParams));
-}
-
-Song UrlRequests::getSong(int id)
-{
-  juce::StringPairArray queryParams;
-  queryParams.set("id", std::to_string(34));
-
-  // Create the URL object
-  makeRequest("song", queryParams);
+  simdjson::dom::parser parser;
+  simdjson::dom::object object;
+  auto error =
+      parser.parse(makeRequest("getSong", queryParams).toStdString())
+          .get(object);
+  if (error)
+  {
+    return {};
+  }
+  
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error)
+  {
+    return {};
+  }
 
   return {};
 }
@@ -246,6 +307,33 @@ Album UrlRequests::getAlbum(std::string id)
   }
   return {};
 }
+
+  ArtistInfo UrlRequests::getArtistInfo2(std::string_view id, int64_t count, bool includeNotPresent)
+  {
+    juce::StringPairArray queryParams;
+    queryParams.set("id", std::string(id));
+    if (count > 0)
+    {
+      queryParams.set("count", std::to_string(count));
+    }
+
+    if (includeNotPresent)
+    {
+      queryParams.set("includeNotPresent", "true");
+    }
+    
+    simdjson::dom::parser parser;
+    simdjson::dom::object object;
+
+    auto error =
+        parser.parse(makeRequest("getArtistInfo2", queryParams).toStdString())
+            .get(object);
+    if (error)
+    {
+      return {};
+    }
+    return {};
+  }
 
 std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
 {

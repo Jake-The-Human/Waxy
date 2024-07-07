@@ -31,13 +31,13 @@ public:
     void changeState(TransportState newState);
 
     bool isPlaying() const { return transportSource.isPlaying(); }
-    SongData getCurrentSong() const { return currentSong_; }
+    Song getCurrentSong() const { return currentSong_; }
 
     juce::AudioTransportSource &getTransportSource() { return transportSource; }
     std::unique_ptr<juce::AudioFormatReaderSource> &getReaderSource() { return readerSource; }
 
 private:
-    SongData currentSong_;
+    Song currentSong_;
     std::deque<Song> songQueue;
 
     TransportState state{TransportState::Stopped};

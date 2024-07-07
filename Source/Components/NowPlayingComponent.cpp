@@ -34,7 +34,7 @@ void NowPlayingComponent::paint(juce::Graphics &g)
     auto area = getLocalBounds();
     g.setColour(juce::Colours::green);
     g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNERN_RADIUS);
-    SongData curSong = waxyState_->getCurrentSong();
+    Song curSong = waxyState_->getCurrentSong();
     currentSongLabel_.setText("Curent Song:" + curSong.title, juce::dontSendNotification);
 }
 
@@ -60,11 +60,11 @@ void NowPlayingComponent::changeListenerCallback(juce::ChangeBroadcaster *source
 
 void NowPlayingComponent::buttonClicked(juce::Button *button)
 {
-    auto t = UrlRequests::getRandomSongs(3);
-    UrlRequests::stream(std::string(t.front().id));
+    // auto t = UrlRequests::getRandomSongs(3);
+    // UrlRequests::stream(std::string(t.front().id));
     // auto id = UrlRequests::getIndexes();
-    //auto t = UrlRequests::getMusicDirectory("c");
-  
+    // auto t = UrlRequests::getMusicDirectory(id.index.front().artist.front().id);
+    UrlRequests::getSong("tr-43");  
     if (button == &playButton_)
     {
         if (playButton_.getButtonText().compare(PLAY) && waxyState_->isPlaying())
