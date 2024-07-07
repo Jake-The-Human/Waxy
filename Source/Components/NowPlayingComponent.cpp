@@ -64,7 +64,8 @@ void NowPlayingComponent::buttonClicked(juce::Button *button)
     // UrlRequests::stream(std::string(t.front().id));
     // auto id = UrlRequests::getIndexes();
     // auto t = UrlRequests::getMusicDirectory(id.index.front().artist.front().id);
-    UrlRequests::getSong("tr-43");  
+    // UrlRequests::getSong("tr-43");
+    UrlRequests::getGenres();
     if (button == &playButton_)
     {
         if (playButton_.getButtonText().compare(PLAY) && waxyState_->isPlaying())

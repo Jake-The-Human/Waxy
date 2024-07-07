@@ -4,9 +4,9 @@
 #include "juce_core/juce_core.h"
 #include <string_view>
 
-juce::String stringViewToJuceString(const std::string_view& sv)
+juce::String stringViewToJuceString(const std::string_view &sv)
 {
-  return { static_cast<juce::CharPointer_UTF8>(sv.data()), sv.size() };
+  return {static_cast<juce::CharPointer_UTF8>(sv.data()), sv.size()};
 }
 
 juce::String
@@ -83,6 +83,7 @@ bool UrlRequests::ping()
   error = object["subsonic-response"].get(responceObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -111,6 +112,7 @@ juce::String UrlRequests::getMusicFolders()
   error = object["subsonic-response"].get(responceObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -124,7 +126,7 @@ juce::String UrlRequests::getMusicFolders()
 }
 
 SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
-                                     std::string ifModifiedSince)
+                                        std::string ifModifiedSince)
 {
   juce::StringPairArray queryParams;
   if (!musicFolderId.empty())
@@ -144,6 +146,7 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -151,12 +154,15 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
   error = object["subsonic-response"].get(responceObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
   simdjson::dom::object indexesObject;
   error = responceObject["indexes"].get(indexesObject);
-  if (error) {
+  if (error)
+  {
+    jassertfalse;
     return {};
   }
 
@@ -168,10 +174,12 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
   error = indexesObject["index"].get(indexArray);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
-  for (auto obj : indexArray) {
+  for (auto obj : indexArray)
+  {
     SubsonicIndexes::SubsonicIndex index;
     index.name = obj["name"].get_string();
     simdjson::dom::array artistsArray;
@@ -183,10 +191,9 @@ SubsonicIndexes UrlRequests::getIndexes(std::string musicFolderId,
     for (auto artist : artistsArray)
     {
       index.artist.emplace_back(SubsonicIndexes::SubsonicIndex::Artist{
-                                  .id = artist["id"].get_string(),
-                                  .name = stringViewToJuceString(artist["name"].get_string()),
-                                  .albumCount = artist["albumCount"].get_int64()
-                                });
+          .id = artist["id"].get_string(),
+          .name = stringViewToJuceString(artist["name"].get_string()),
+          .albumCount = artist["albumCount"].get_int64()});
     }
     result.index.push_back(index);
   }
@@ -198,7 +205,7 @@ juce::var UrlRequests::getMusicDirectory(std::string_view id)
 {
   juce::StringPairArray queryParams;
   queryParams.set("id", std::string(id));
-  
+
   simdjson::dom::parser parser;
   simdjson::dom::object object;
   auto error =
@@ -206,16 +213,19 @@ juce::var UrlRequests::getMusicDirectory(std::string_view id)
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
-  
+
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
   // not sure what to do with the results.
+  jassertfalse;
   return {};
 }
 
@@ -232,26 +242,31 @@ Song UrlRequests::getSong(std::string id)
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
-  
+
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
+
   simdjson::dom::object songObject;
   error = responceObject["song"].get(songObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
-  
+
   simdjson::dom::array artistsArray;
   error = songObject["artists"].get(artistsArray);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -259,52 +274,50 @@ Song UrlRequests::getSong(std::string id)
   for (auto a : artistsArray)
   {
     artists.push_back(Song::Helper{
-                    .id = a["id"].get_string(),
-                    .name = stringViewToJuceString(a["name"].get_string())
-                  });
+        .id = a["id"].get_string(),
+        .name = stringViewToJuceString(a["name"].get_string())});
   }
-  
+
   simdjson::dom::array albumArtistsArray;
   error = songObject["albumArtists"].get(albumArtistsArray);
   if (error)
   {
+    jassertfalse;
     return {};
   }
-  
+
   std::vector<Song::Helper> albumArtists;
   for (auto a : albumArtistsArray)
   {
     albumArtists.push_back(Song::Helper{
-                    .id = a["id"].get_string(),
-                    .name = stringViewToJuceString(a["name"].get_string())
-                  });
+        .id = a["id"].get_string(),
+        .name = stringViewToJuceString(a["name"].get_string())});
   }
 
   return Song{
-    .id = songObject["id"].get_string(),
-    .album = stringViewToJuceString(songObject["album"].get_string()),
-    .albumId = songObject["albumId"].get_string(),
-    .artist = stringViewToJuceString(songObject["artist"].get_string()),
-    .artistId = songObject["artistId"].get_string(),
-    .artists = artists,
-    .displayArtist = stringViewToJuceString(songObject["displayArtist"].get_string()),
-    .albumArtists = albumArtists,
-    .displayAlbumArtist = stringViewToJuceString(songObject["displayAlbumArtist"].get_string()),
-    .bitRate = songObject["bitRate"].get_int64(),
-    .contentType = songObject["contentType"].get_string(),
-    .duration = songObject["duration"].get_int64(),
-    .isDir = songObject["isDir"].get_bool(),
-    .isVideo = songObject["isVideo"].get_bool(),
-    .parent = songObject["parent"].get_string(),
-    .path = songObject["path"].get_string(),
-    .size = songObject["size"].get_int64(),
-    .suffix = songObject["suffix"].get_string(),
-    .title = stringViewToJuceString(songObject["title"].get_string()),
-    .track = songObject["track"].get_int64(),
-    .type = songObject["type"].get_string(),
-    .year = songObject["year"].get_int64(),
-    .musicBrainzId = songObject["musicBrainzId"].get_string()
-  };
+      .id = songObject["id"].get_string(),
+      .album = stringViewToJuceString(songObject["album"].get_string()),
+      .albumId = songObject["albumId"].get_string(),
+      .artist = stringViewToJuceString(songObject["artist"].get_string()),
+      .artistId = songObject["artistId"].get_string(),
+      .artists = artists,
+      .displayArtist = stringViewToJuceString(songObject["displayArtist"].get_string()),
+      .albumArtists = albumArtists,
+      .displayAlbumArtist = stringViewToJuceString(songObject["displayAlbumArtist"].get_string()),
+      .bitRate = songObject["bitRate"].get_int64(),
+      .contentType = songObject["contentType"].get_string(),
+      .duration = songObject["duration"].get_int64(),
+      .isDir = songObject["isDir"].get_bool(),
+      .isVideo = songObject["isVideo"].get_bool(),
+      .parent = songObject["parent"].get_string(),
+      .path = songObject["path"].get_string(),
+      .size = songObject["size"].get_int64(),
+      .suffix = songObject["suffix"].get_string(),
+      .title = stringViewToJuceString(songObject["title"].get_string()),
+      .track = songObject["track"].get_int64(),
+      .type = songObject["type"].get_string(),
+      .year = songObject["year"].get_int64(),
+      .musicBrainzId = songObject["musicBrainzId"].get_string()};
 }
 
 std::vector<Genre> UrlRequests::getGenres()
@@ -317,9 +330,44 @@ std::vector<Genre> UrlRequests::getGenres()
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
-  return {};
+
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error)
+  {
+    jassertfalse;
+    return {};
+  }
+
+  simdjson::dom::object genresObject;
+  error = responceObject["genres"].get(genresObject);
+  if (error)
+  {
+    jassertfalse;
+    return {};
+  }
+
+  simdjson::dom::array genreArray;
+  error = genresObject["genre"].get(genreArray);
+  if (error)
+  {
+    jassertfalse;
+    return {};
+  }
+
+  std::vector<Genre> result;
+  for (auto obj : genreArray)
+  {
+    result.push_back(Genre{
+        .value = stringViewToJuceString(obj["value"].get_string()),
+        .songCount = obj["songCount"].get_int64(),
+        .albumCount = obj["albumCount"].get_int64()});
+  }
+
+  return result;
 }
 
 std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
@@ -329,7 +377,7 @@ std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
   {
     queryParams.set("musicFolderId", musicFolderId);
   }
-  
+
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
@@ -338,8 +386,10 @@ std::vector<Artist> UrlRequests::getArtists(std::string musicFolderId)
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
+  jassertfalse;
   return {};
 }
 
@@ -355,8 +405,10 @@ Artist UrlRequests::getArtist(std::string id)
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
+  jassertfalse;
   return {};
 }
 
@@ -372,37 +424,41 @@ Album UrlRequests::getAlbum(std::string id)
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
+  jassertfalse;
   return {};
 }
 
-  ArtistInfo UrlRequests::getArtistInfo2(std::string_view id, int64_t count, bool includeNotPresent)
+ArtistInfo UrlRequests::getArtistInfo2(std::string_view id, int64_t count, bool includeNotPresent)
+{
+  juce::StringPairArray queryParams;
+  queryParams.set("id", std::string(id));
+  if (count > 0)
   {
-    juce::StringPairArray queryParams;
-    queryParams.set("id", std::string(id));
-    if (count > 0)
-    {
-      queryParams.set("count", std::to_string(count));
-    }
+    queryParams.set("count", std::to_string(count));
+  }
 
-    if (includeNotPresent)
-    {
-      queryParams.set("includeNotPresent", "true");
-    }
-    
-    simdjson::dom::parser parser;
-    simdjson::dom::object object;
+  if (includeNotPresent)
+  {
+    queryParams.set("includeNotPresent", "true");
+  }
 
-    auto error =
-        parser.parse(makeRequest("getArtistInfo2", queryParams).toStdString())
-            .get(object);
-    if (error)
-    {
-      return {};
-    }
+  simdjson::dom::parser parser;
+  simdjson::dom::object object;
+
+  auto error =
+      parser.parse(makeRequest("getArtistInfo2", queryParams).toStdString())
+          .get(object);
+  if (error)
+  {
+    jassertfalse;
     return {};
   }
+  jassertfalse;
+  return {};
+}
 
 std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
 {
@@ -420,6 +476,7 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
           .get(object);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -427,6 +484,7 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   error = object["subsonic-response"].get(responceObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -434,6 +492,7 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   error = responceObject["randomSongs"].get(randomSongObject);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 
@@ -441,6 +500,7 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs)
   error = randomSongObject["song"].get(songList);
   if (error)
   {
+    jassertfalse;
     return {};
   }
 

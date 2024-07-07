@@ -74,9 +74,9 @@ struct Artist
 
 struct Genre
 {
+    juce::String value;
     int64_t songCount;
     int64_t albumCount;
-    juce::String genre;
 };
 
 struct SimilarArtist
