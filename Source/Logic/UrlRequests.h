@@ -6,12 +6,6 @@
 
 namespace UrlRequests
 {
-  struct UrlResponse
-  {
-    juce::Result status;
-    juce::String response;
-  };
-
   bool ping();
   juce::String getIndexes(std::string musicFolderId, std::string ifModifiedSince);
   juce::var getMusicDirectory(juce::String id);

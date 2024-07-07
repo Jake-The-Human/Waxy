@@ -1,9 +1,6 @@
 #include "UrlRequests.h"
 #include "Logic/Song.h"
 #include "ThirdParty/simdjson.h"
-#include <iostream>
-
-using UrlResponse = UrlRequests::UrlResponse;
 
 juce::String
 makeRequest(const juce::String &requestType,
@@ -65,9 +62,14 @@ bool UrlRequests::ping() {
   if (error) {
     return false;
   }
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error) {
+    return {};
+  }
 
   std::string_view status;
-  error = object["status"].get(status);
+  error = responceObject["status"].get(status);
   if (error) {
     return false;
   }
@@ -92,6 +94,11 @@ juce::String UrlRequests::getIndexes(std::string musicFolderId,
   if (error) {
     return "";
   }
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error) {
+    return {};
+  }
   return "";
 }
 
@@ -109,8 +116,13 @@ juce::String UrlRequests::getMusicFolders() {
   if (error) {
     return "";
   }
+  simdjson::dom::object responceObject;
+  error = object["subsonic-response"].get(responceObject);
+  if (error) {
+    return {};
+  }
   std::string_view id;
-  error = object["id"].get(id);
+  error = responceObject["id"].get(id);
   if (error) {
     return "";
   }
@@ -144,21 +156,23 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs) {
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
-  auto error = parser.parse(makeRequest("getRandomSongs", queryParams).toStdString()).get(object);
+  auto error =
+      parser.parse(makeRequest("getRandomSongs", queryParams).toStdString())
+          .get(object);
   if (error) {
     return {};
   }
-   simdjson::dom::object responceObject;
+  simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
   if (error) {
     return {};
   }
-   
+
   simdjson::dom::object randomSongObject;
   error = responceObject["randomSongs"].get(randomSongObject);
   if (error) {
     return {};
-  }  
+  }
   simdjson::dom::array songList;
   error = randomSongObject["song"].get(songList);
   if (error) {
@@ -170,12 +184,11 @@ std::vector<Song> UrlRequests::getRandomSongs(int numberOfSongs) {
     auto songError = song.get(songObject);
     if (!error) {
       // std::cout << song << "\n" << songObject << "\n" << std::endl;
-     resultList[i++] = Song(SongData{
-        .id = songObject["id"].get_string(),
-        .albumId = songObject["albumId"].get_string(),
-        .artistId = songObject["artistId"].get_string(),
-        .title = songObject["title"].get_string()
-      }); 
+      resultList[i++] = Song(
+          SongData{.id = songObject["id"].get_string(),
+                   .albumId = songObject["albumId"].get_string(),
+                   .artistId = songObject["artistId"].get_string(),
+                   .title = juce::String(songObject["title"].get_c_str())});
     }
   }
   return resultList;

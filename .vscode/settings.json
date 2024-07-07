@@ -89,7 +89,8 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "ranges": "cpp"
     },
     "makefile.buildLog": "${workspaceFolder}/Builds/LinuxMakefile",
 }
