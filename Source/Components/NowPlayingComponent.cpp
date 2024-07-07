@@ -60,9 +60,10 @@ void NowPlayingComponent::changeListenerCallback(juce::ChangeBroadcaster *source
 
 void NowPlayingComponent::buttonClicked(juce::Button *button)
 {
-    UrlRequests::getRandomSongs(3);
+    auto t = UrlRequests::getRandomSongs(3);
+    UrlRequests::stream(std::string(t.front().id));
     // auto id = UrlRequests::getIndexes();
-    auto t = UrlRequests::getMusicDirectory("c");
+    //auto t = UrlRequests::getMusicDirectory("c");
   
     if (button == &playButton_)
     {

@@ -90,7 +90,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "*.mm": "cpp"
     },
     "makefile.buildLog": "${workspaceFolder}/Builds/LinuxMakefile",
 }
