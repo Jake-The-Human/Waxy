@@ -6,52 +6,52 @@
               companyWebsite="https://github.com/Jake-The-Human/Waxy" userNotes="Aggressively free until we sell out..."
               headerPath="Source;~/JUCE/modules;../../Source" cppLanguageStandard="20">
   <MAINGROUP id="HVv5ie" name="Waxy">
-    <GROUP id="{341BBD7D-A52D-B99F-200C-C0064C1179F8}" name="ThirdParty">
-      <FILE id="wrziqI" name="simdjson.cpp" compile="1" resource="0" file="Source/ThirdParty/simdjson.cpp"/>
-      <FILE id="TqurNz" name="simdjson.h" compile="0" resource="0" file="Source/ThirdParty/simdjson.h"/>
-    </GROUP>
-    <GROUP id="{6A742EEF-805B-6C59-5C6B-40CB8DC4FD98}" name="Components">
-      <FILE id="XehGzX" name="DesktopComponent.cpp" compile="1" resource="0"
-            file="Source/Components/DesktopComponent.cpp"/>
-      <FILE id="Ysg12R" name="DesktopComponent.h" compile="0" resource="0"
-            file="Source/Components/DesktopComponent.h"/>
-      <FILE id="fwvwvB" name="FileListBoxModel.cpp" compile="1" resource="0"
-            file="Source/Components/FileListBoxModel.cpp"/>
-      <FILE id="Y3qSBI" name="FileListBoxModel.h" compile="0" resource="0"
-            file="Source/Components/FileListBoxModel.h"/>
-      <FILE id="tOHcpr" name="FileListComponent.cpp" compile="1" resource="0"
-            file="Source/Components/FileListComponent.cpp"/>
-      <FILE id="SAgDwj" name="FileListComponent.h" compile="0" resource="0"
-            file="Source/Components/FileListComponent.h"/>
-      <FILE id="DoxeZH" name="GuiConstants.h" compile="0" resource="0" file="Source/Components/GuiConstants.h"/>
-      <FILE id="AzDiNL" name="NowPlayingComponent.cpp" compile="1" resource="0"
-            file="Source/Components/NowPlayingComponent.cpp"/>
-      <FILE id="kRfpuC" name="NowPlayingComponent.h" compile="0" resource="0"
-            file="Source/Components/NowPlayingComponent.h"/>
-      <FILE id="iKwXCA" name="PlaylistBoxModel.cpp" compile="1" resource="0"
-            file="Source/Components/PlaylistBoxModel.cpp"/>
-      <FILE id="L7Z3hC" name="PlaylistBoxModel.h" compile="0" resource="0"
-            file="Source/Components/PlaylistBoxModel.h"/>
-      <FILE id="R6gRz3" name="PlaylistComponent.cpp" compile="1" resource="0"
-            file="Source/Components/PlaylistComponent.cpp"/>
-      <FILE id="s3Nrbk" name="PlaylistComponent.h" compile="0" resource="0"
-            file="Source/Components/PlaylistComponent.h"/>
-      <FILE id="Y3igA2" name="ProfileComponent.cpp" compile="1" resource="0"
-            file="Source/Components/ProfileComponent.cpp"/>
-      <FILE id="gOLXz3" name="ProfileComponent.h" compile="0" resource="0"
-            file="Source/Components/ProfileComponent.h"/>
-      <FILE id="atevYB" name="SettingsComponent.cpp" compile="1" resource="0"
-            file="Source/Components/SettingsComponent.cpp"/>
-      <FILE id="ShWblK" name="SettingsComponent.h" compile="0" resource="0"
-            file="Source/Components/SettingsComponent.h"/>
-    </GROUP>
-    <GROUP id="{4066D5E9-ABB5-2866-1B14-EE1C05A3213B}" name="Settings">
-      <FILE id="o7VBCO" name="SettingsManager.cpp" compile="1" resource="0"
-            file="Source/Settings/SettingsManager.cpp"/>
-      <FILE id="mBBVAp" name="SettingsManager.h" compile="0" resource="0"
-            file="Source/Settings/SettingsManager.h"/>
-    </GROUP>
     <GROUP id="{A36E92FC-E14E-3523-669A-AE8CA8BF3E4C}" name="Source">
+      <GROUP id="{341BBD7D-A52D-B99F-200C-C0064C1179F8}" name="ThirdParty">
+        <FILE id="wrziqI" name="simdjson.cpp" compile="1" resource="0" file="Source/ThirdParty/simdjson.cpp"/>
+        <FILE id="TqurNz" name="simdjson.h" compile="0" resource="0" file="Source/ThirdParty/simdjson.h"/>
+      </GROUP>
+      <GROUP id="{6A742EEF-805B-6C59-5C6B-40CB8DC4FD98}" name="Components">
+        <FILE id="XehGzX" name="DesktopComponent.cpp" compile="1" resource="0"
+              file="Source/Components/DesktopComponent.cpp"/>
+        <FILE id="Ysg12R" name="DesktopComponent.h" compile="0" resource="0"
+              file="Source/Components/DesktopComponent.h"/>
+        <FILE id="fwvwvB" name="FileListBoxModel.cpp" compile="1" resource="0"
+              file="Source/Components/FileListBoxModel.cpp"/>
+        <FILE id="Y3qSBI" name="FileListBoxModel.h" compile="0" resource="0"
+              file="Source/Components/FileListBoxModel.h"/>
+        <FILE id="tOHcpr" name="FileListComponent.cpp" compile="1" resource="0"
+              file="Source/Components/FileListComponent.cpp"/>
+        <FILE id="SAgDwj" name="FileListComponent.h" compile="0" resource="0"
+              file="Source/Components/FileListComponent.h"/>
+        <FILE id="DoxeZH" name="GuiConstants.h" compile="0" resource="0" file="Source/Components/GuiConstants.h"/>
+        <FILE id="AzDiNL" name="NowPlayingComponent.cpp" compile="1" resource="0"
+              file="Source/Components/NowPlayingComponent.cpp"/>
+        <FILE id="kRfpuC" name="NowPlayingComponent.h" compile="0" resource="0"
+              file="Source/Components/NowPlayingComponent.h"/>
+        <FILE id="iKwXCA" name="PlaylistBoxModel.cpp" compile="1" resource="0"
+              file="Source/Components/PlaylistBoxModel.cpp"/>
+        <FILE id="L7Z3hC" name="PlaylistBoxModel.h" compile="0" resource="0"
+              file="Source/Components/PlaylistBoxModel.h"/>
+        <FILE id="R6gRz3" name="PlaylistComponent.cpp" compile="1" resource="0"
+              file="Source/Components/PlaylistComponent.cpp"/>
+        <FILE id="s3Nrbk" name="PlaylistComponent.h" compile="0" resource="0"
+              file="Source/Components/PlaylistComponent.h"/>
+        <FILE id="Y3igA2" name="ProfileComponent.cpp" compile="1" resource="0"
+              file="Source/Components/ProfileComponent.cpp"/>
+        <FILE id="gOLXz3" name="ProfileComponent.h" compile="0" resource="0"
+              file="Source/Components/ProfileComponent.h"/>
+        <FILE id="atevYB" name="SettingsComponent.cpp" compile="1" resource="0"
+              file="Source/Components/SettingsComponent.cpp"/>
+        <FILE id="ShWblK" name="SettingsComponent.h" compile="0" resource="0"
+              file="Source/Components/SettingsComponent.h"/>
+      </GROUP>
+      <GROUP id="{4066D5E9-ABB5-2866-1B14-EE1C05A3213B}" name="Settings">
+        <FILE id="o7VBCO" name="SettingsManager.cpp" compile="1" resource="0"
+              file="Source/Settings/SettingsManager.cpp"/>
+        <FILE id="mBBVAp" name="SettingsManager.h" compile="0" resource="0"
+              file="Source/Settings/SettingsManager.h"/>
+      </GROUP>
       <GROUP id="{508EA3E2-5B89-0389-384C-B03041F84AB7}" name="Logic">
         <FILE id="EsoW3X" name="Song.h" compile="0" resource="0" file="Source/Logic/Song.h"/>
         <FILE id="LppAJv" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/UrlRequests.cpp"/>
