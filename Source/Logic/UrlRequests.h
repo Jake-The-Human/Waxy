@@ -49,6 +49,13 @@ class URLFetcher : public juce::ThreadPoolJob
         juce::URL urlObj("http://localhost:4747/rest/" + requestType);
         urlObj = urlObj.withParameters(queryParamsInternal);
 
+        // Not sure if we need this so i put here before i start remove prev impl
+        // Add POST data if provided
+        // if (!postData.isEmpty())
+        // {
+        //   url = url.withPOSTData(postData);
+        // } 
+
         juce::String headers = "Content-Type: application/json";
         int timeOutMs = 30000; // Timeout in milliseconds
         juce::StringPairArray responseHeaders;
