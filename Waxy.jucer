@@ -58,6 +58,8 @@
         <FILE id="EsoW3X" name="Song.h" compile="0" resource="0" file="Source/Logic/Song.h"/>
         <FILE id="itWC3A" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/UrlJob.cpp"/>
         <FILE id="ujuEp6" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/UrlJob.h"/>
+        <FILE id="HzBDLX" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/UrlJobs.cpp"/>
+        <FILE id="LOyoQV" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/UrlJobs.h"/>
         <FILE id="LppAJv" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/UrlRequests.cpp"/>
         <FILE id="w9ZtDg" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/UrlRequests.h"/>
         <FILE id="bm5vj4" name="WaxyState.cpp" compile="1" resource="0" file="Source/Logic/WaxyState.cpp"/>

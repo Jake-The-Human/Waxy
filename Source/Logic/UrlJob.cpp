@@ -10,7 +10,7 @@
 
 #include "UrlJob.h"
 
-URLJob::URLJob(const juce::String &jobName, const juce::String &request, const juce::StringPairArray &queryParams, std::function<void(const juce::String &)> callback) : juce::ThreadPoolJob(jobName),
+UrlJob::UrlJob(const juce::String &jobName, const juce::String &request, const juce::StringPairArray &queryParams, std::function<void(const juce::String &)> callback) : juce::ThreadPoolJob(jobName),
                                                                                                                                                                          requestType(request),
                                                                                                                                                                          queryParamsInternal(queryParams),
                                                                                                                                                                          callbackInternal(callback)
@@ -21,7 +21,7 @@ URLJob::URLJob(const juce::String &jobName, const juce::String &request, const j
   queryParamsInternal.set("f", "json");
 }
 
-juce::ThreadPoolJob::JobStatus URLJob::runJob()
+juce::ThreadPoolJob::JobStatus UrlJob::runJob()
 {
   juce::URL urlObj("http://localhost:4747/rest/" + requestType);
   urlObj = urlObj.withParameters(queryParamsInternal);

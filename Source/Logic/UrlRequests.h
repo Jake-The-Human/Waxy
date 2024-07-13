@@ -6,12 +6,12 @@
 
 class UrlRequests
 {
-  JUCE_DECLARE_SINGLETON(UrlRequests, true) // true means the singleton will be created on demand
 public:
+  JUCE_DECLARE_SINGLETON(UrlRequests, true) // true means the singleton will be created on demand
   ~UrlRequests() { clearSingletonInstance(); }
   UrlRequests() = default;
 
-  void addJob(URLJob *job, bool deleteJobWhenFinished);
+  void addJob(UrlJob *job, bool deleteJobWhenFinished);
 
 private:
   static constexpr auto NUM_THREADS = 2;
