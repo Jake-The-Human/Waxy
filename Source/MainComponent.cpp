@@ -24,10 +24,6 @@ MainComponent::MainComponent() : waxyState_(std::make_shared<WaxyState>()), desk
         // Specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
     }  
-
-    if (!UrlRequests::ping()) {
-        DBG("Gonic is not connected.");
-    }
 }
 
 MainComponent::~MainComponent()

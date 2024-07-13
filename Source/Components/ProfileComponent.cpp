@@ -26,7 +26,8 @@ void ProfileComponent::resized() {
   searchBox_.setBounds(area);
 
   checkConnection.setBounds(area);
-  if (UrlRequests::ping()) {
+  // if (UrlRequests::ping()) {
+  if (false) {
     checkConnection.setButtonText("Connected to GONIC!!!!! Know matter how are "
                                   "you try you can't stop us now....");
   } else {

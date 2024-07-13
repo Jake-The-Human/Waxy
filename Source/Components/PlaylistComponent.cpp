@@ -4,7 +4,7 @@
 #include "GuiConstants.h"
 #include "Logic/UrlRequests.h"
 
-PlaylistComponent::PlaylistComponent(std::shared_ptr<WaxyState> waxyState) : nowPlayingView_(waxyState), playlistBoxModel_(UrlRequests::getRandomSongs(10)) {
+PlaylistComponent::PlaylistComponent(std::shared_ptr<WaxyState> waxyState) : nowPlayingView_(waxyState), playlistBoxModel_() {
     playlistViewTitle_.setText("Whats up next", juce::dontSendNotification);
     addAndMakeVisible(playlistViewTitle_);
     playlistListBox_.setModel(&playlistBoxModel_);

@@ -66,7 +66,7 @@ void NowPlayingComponent::buttonClicked(juce::Button *button)
     // auto t = UrlRequests::getMusicDirectory(id.index.front().artist.front().id);
     // UrlRequests::getSong("tr-43");
     // UrlRequests::getGenres();
-    UrlRequests::getArtist("ar-1");
+    // UrlRequests::getArtist("ar-1");
     // UrlRequests::getArtists();
     if (button == &playButton_)
     {
