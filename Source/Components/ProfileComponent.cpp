@@ -1,7 +1,8 @@
 #include "ProfileComponent.h"
 #include "GuiConstants.h"
-#include "Logic/UrlRequests.h"
+#include "Logic/UrlJobs.h"
 #include <Logic/Song.h>
+#include "Logic/ParseJson.h"
 
 ProfileComponent::ProfileComponent() {
   searchBox_.setEditable(true);
@@ -9,7 +10,7 @@ ProfileComponent::ProfileComponent() {
   searchBox_.setColour(juce::Label::backgroundColourId, juce::Colours::black);
   searchBox_.setHelpText("Search");
   // addAndMakeVisible(searchBox_);
-
+  UrlJobs::ping([this](const juce::String& json){urlCallback(json);});
   addAndMakeVisible(checkConnection);
 }
 
@@ -18,6 +19,13 @@ void ProfileComponent::paint(juce::Graphics &g) {
   area.reduce(4, 4);
   g.setColour(juce::Colours::ivory);
   g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNERN_RADIUS);
+  if (isGonicConnected) {
+    checkConnection.setButtonText("Connected to GONIC!!!!! Know matter how are "
+                                  "you try you can't stop us now....");
+  } else {
+    checkConnection.setButtonText(
+        "NOT connected to GONIC!!!!! O shit you stopped us............. =(");
+  }
 }
 
 void ProfileComponent::resized() {
@@ -26,12 +34,10 @@ void ProfileComponent::resized() {
   searchBox_.setBounds(area);
 
   checkConnection.setBounds(area);
-  // if (UrlRequests::ping()) {
-  if (false) {
-    checkConnection.setButtonText("Connected to GONIC!!!!! Know matter how are "
-                                  "you try you can't stop us now....");
-  } else {
-    checkConnection.setButtonText(
-        "NOT connected to GONIC!!!!! O shit you stopped us............. =(");
-  }
+}
+
+void ProfileComponent::urlCallback(const juce::String& json) {
+  isGonicConnected = ParseJson::ping(json);
+  // repaint(checkConnection.getScreenX(), checkConnection.getScreenY(), checkConnection.getWidth(), checkConnection.getHeight());
+  checkConnection.repaint(checkConnection.getScreenX(), checkConnection.getScreenY(), checkConnection.getWidth(), checkConnection.getHeight());
 }
