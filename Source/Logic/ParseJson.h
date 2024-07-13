@@ -9,20 +9,19 @@
 namespace ParseJson
 {
   // system
-  bool ping();
+  bool ping(const juce::String& json);
   // Browsing
-  juce::String getMusicFolders();
-  SubsonicIndexes getIndexes(std::string musicFolderId = "", std::string
-                                                                 ifModifiedSince = "");
-  juce::var getMusicDirectory(std::string_view id);
-  std::vector<Genre> getGenres();
-  Artists getArtists(std::string musicFolderId = "");
-  Artist getArtist(std::string id);
-  Album getAlbum(std::string id);
-  Song getSong(std::string id);
-  ArtistInfo getArtistInfo1(std::string_view id, int64_t count = 0, bool includeNotPresent = false);
+  juce::String getMusicFolders(const juce::String& json);
+  SubsonicIndexes getIndexes(const juce::String& json);
+  void getMusicDirectory(const juce::String& json);
+  std::vector<Genre> getGenres(const juce::String& json);
+  Artists getArtists(const juce::String& json);
+  Artist getArtist(const juce::String& json);
+  Album getAlbum(const juce::String& json);
+  Song getSong(const juce::String& json);
+  ArtistInfo getArtistInfo2(const juce::String& json);
   // Album/song lists
-  std::vector<Song> getRandomSongs(int numberOfSongs);
+  std::vector<Song> getRandomSongs(const juce::String& json);
   // Media retrieval
-  void stream(std::string id, int maxBitRate = -1, std::string format = "");
+  void stream();
 }
