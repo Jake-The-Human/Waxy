@@ -1,7 +1,6 @@
 #include "ProfileComponent.h"
 #include "GuiConstants.h"
 #include "Logic/UrlJobs.h"
-#include <Logic/Song.h>
 #include "Logic/ParseJson.h"
 
 ProfileComponent::ProfileComponent() {
@@ -38,6 +37,5 @@ void ProfileComponent::resized() {
 
 void ProfileComponent::urlCallback(const juce::String& json) {
   isGonicConnected = ParseJson::ping(json);
-  // repaint(checkConnection.getScreenX(), checkConnection.getScreenY(), checkConnection.getWidth(), checkConnection.getHeight());
   checkConnection.repaint(checkConnection.getScreenX(), checkConnection.getScreenY(), checkConnection.getWidth(), checkConnection.getHeight());
 }

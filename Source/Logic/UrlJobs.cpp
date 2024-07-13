@@ -91,6 +91,33 @@ void UrlJobs::getArtistInfo2(Callback callback, std::string_view id,
       true);
 }
 
+void UrlJobs::getAlbumInfo2(Callback callback, std::string id) {}
+
+void UrlJobs::getSimilarSongs2(Callback callback, std::string id,
+                               int count) {}
+
+void UrlJobs::getTopSongs(Callback callback, std::string artistName,
+                          int count) {}
+
+void UrlJobs::getAlbumList2(Callback callback, std::string type,
+                            std::string fromYear, std::string toYear, int size,
+                            int offset,
+                            std::string musicFolderId) // size: max is 500
+{}
+
+// Searching
+void UrlJobs::search(Callback callback, std::string artist, std::string album,
+                     std::string title, std::string any, int count, int offset,
+                     std::string newerThen) {}
+
+void UrlJobs::search2(Callback callback, std::string query, int artistCount,
+                      int artistOffset, int albumCount, int songCount,
+                      int songOffset, std::string musicFilderId) {}
+
+void UrlJobs::search3(Callback callback, int artistCount, int artistOffset,
+                      int albumCount, int albumOffset, int songCount,
+                      int songOffset, std::string musicFolderId) {}
+
 void UrlJobs::getRandomSongs(Callback callback, int numberOfSongs) {
   juce::StringPairArray queryParams;
   if (numberOfSongs > 0 && numberOfSongs <= 500) {
@@ -102,4 +129,10 @@ void UrlJobs::getRandomSongs(Callback callback, int numberOfSongs) {
 }
 
 void UrlJobs::stream(Callback callback, std::string id, int maxBitRate,
-                     std::string format) {}
+                     std::string format) {
+  juce::StringPairArray queryParams;
+  queryParams.set("id", std::string(id));
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("stream", "stream", queryParams, callback),
+      true);
+}
