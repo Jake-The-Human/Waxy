@@ -20,6 +20,14 @@ namespace ParseJson
   Album getAlbum(const juce::String& json);
   Song getSong(const juce::String& json);
   ArtistInfo getArtistInfo2(const juce::String& json);
+  void getAlbumInfo2(const juce::String& json);
+  void getSimilarSongs2(const juce::String& json);
+  void getTopSongs(const juce::String& json);
+  void getAlbumList2(const juce::String& json);
+  // Searching
+  void search(const juce::String& json);
+  void search2(const juce::String& json);
+  void search3(const juce::String& json);
   // Album/song lists
   std::vector<Song> getRandomSongs(const juce::String& json);
   // Media retrieval

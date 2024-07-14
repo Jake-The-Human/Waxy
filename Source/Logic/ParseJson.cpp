@@ -333,6 +333,42 @@ ArtistInfo ParseJson::getArtistInfo2(const juce::String &json) {
   return {};
 }
 
+void ParseJson::getAlbumInfo2(const juce::String& json)
+{
+  
+}
+
+void ParseJson::getSimilarSongs2(const juce::String& json)
+{
+  
+}
+
+void ParseJson::getTopSongs(const juce::String& json)
+{
+  
+}
+
+void ParseJson::getAlbumList2(const juce::String& json)
+{
+  
+}
+
+// Searching
+void ParseJson::search(const juce::String& json)
+{
+  
+}
+
+void ParseJson::search2(const juce::String& json)
+{
+  
+}
+
+void ParseJson::search3(const juce::String& json)
+{
+  
+}
+
 std::vector<Song> ParseJson::getRandomSongs(const juce::String &json) {
   simdjson::dom::parser parser;
   simdjson::dom::object object;
