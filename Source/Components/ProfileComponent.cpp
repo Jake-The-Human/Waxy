@@ -10,6 +10,9 @@ ProfileComponent::ProfileComponent() {
   searchBox_.setHelpText("Search");
   // addAndMakeVisible(searchBox_);
   UrlJobs::ping([this](const juce::String& json){urlCallback(json);});
+  // checkConnection.onClick = [this](){UrlJobs::stream([this](const juce::String& json){
+  //                                                      DBG(json);
+  //                                                    }, "tr-1");};
   addAndMakeVisible(checkConnection);
 }
 
