@@ -106,33 +106,73 @@ void UrlJobs::getArtistInfo2(Callback callback, const std::string &id,
       true);
 }
 
-void UrlJobs::getAlbumInfo2(Callback callback, const std::string &id) {}
+void UrlJobs::getAlbumInfo2(Callback callback, const std::string &id) {
+  juce::StringPairArray queryParams;
+  queryParams.set("id", id);
+
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("getAlbumInfo2", "getAlbumInfo2", queryParams, callback), true);
+  
+}
 
 void UrlJobs::getSimilarSongs2(Callback callback, const std::string &id,
-                               int count) {}
+                               int count) {
+  
+  juce::StringPairArray queryParams;
+  queryParams.set("id", id);
+
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("getSimilarSongs2", "getSimilarSongs2", queryParams, callback), true);
+}
 
 void UrlJobs::getTopSongs(Callback callback, const std::string &artistName,
-                          int count) {}
+                          int count) {
+  
+  juce::StringPairArray queryParams;
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("getTopSongs", "getTopSongs", queryParams, callback), true);
+}
 
 void UrlJobs::getAlbumList2(Callback callback, const std::string &type,
                             const std::string &fromYear, const std::string &toYear, int size,
                             int offset,
                             const std::string &musicFolderId) // size: max is 500
 {
+  juce::StringPairArray queryParams;
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("getAlbumList2", "getAlbumList2", queryParams, callback), true);
 }
 
 // Searching
 void UrlJobs::search(Callback callback, const std::string &artist, const std::string &album,
                      const std::string &title, const std::string &any, int count, int offset,
-                     const std::string &newerThen) {}
+                     const std::string &newerThen) {
+  juce::StringPairArray queryParams;
+
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("search", "search", queryParams, callback), true);
+  
+}
 
 void UrlJobs::search2(Callback callback, const std::string &query, int artistCount,
                       int artistOffset, int albumCount, int songCount,
-                      int songOffset, const std::string &musicFilderId) {}
+                      int songOffset, const std::string &musicFilderId) {
+  juce::StringPairArray queryParams;
+  
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("search2", "search2", queryParams, callback), true);
+  
+}
 
 void UrlJobs::search3(Callback callback, int artistCount, int artistOffset,
                       int albumCount, int albumOffset, int songCount,
-                      int songOffset, const std::string &musicFolderId) {}
+                      int songOffset, const std::string &musicFolderId) {
+  juce::StringPairArray queryParams;
+
+  UrlRequests::getInstance()->addJob(
+      new UrlJob("search3", "search3", queryParams, callback), true);
+  
+}
 
 void UrlJobs::getRandomSongs(Callback callback, int numberOfSongs)
 {

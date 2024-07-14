@@ -5,11 +5,11 @@
 #include <string>
 #include <functional>
 
+// for more info check this out B^)
+// https://www.subsonic.org/pages/api.jsp
 namespace UrlJobs
 {
     using Callback = std::function<void(const juce::String &)>;
-    // for more info check this out B^)
-    // https://www.subsonic.org/pages/api.jsp
 
     // system
     void ping(Callback callback);
