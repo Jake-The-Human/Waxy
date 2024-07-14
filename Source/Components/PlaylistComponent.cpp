@@ -16,7 +16,7 @@ void PlaylistComponent::paint(juce::Graphics& g) {
     auto area = getLocalBounds();
     area.reduce(4, 4);
     g.setColour(juce::Colours::tan);
-    g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNERN_RADIUS);
+    g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNER_RADIUS);
     g.resetToDefaultState();
 }
 void PlaylistComponent::resized() {

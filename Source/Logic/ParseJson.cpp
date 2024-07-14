@@ -6,95 +6,112 @@
 #include "juce_core/system/juce_PlatformDefs.h"
 #include <string_view>
 
-juce::String stringViewToJuceString(const std::string_view &sv) {
+juce::String stringViewToJuceString(const std::string_view &sv)
+{
   return {static_cast<juce::CharPointer_UTF8>(sv.data()), sv.size()};
 }
 
-bool ParseJson::ping(const juce::String &json) {
+bool ParseJson::ping(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   std::string_view status;
   error = responceObject["status"].get(status);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   return status == "ok";
 }
 
-juce::String ParseJson::getMusicFolders(const juce::String &json) {
+juce::String ParseJson::getMusicFolders(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
   auto error = parser.parse(json.toStdString());
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   std::string_view id;
   error = responceObject["id"].get(id);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
   return juce::String(id.data());
 }
 
-SubsonicIndexes ParseJson::getIndexes(const juce::String &json) {
+SubsonicIndexes ParseJson::getIndexes(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object indexesObject;
   error = responceObject["indexes"].get(indexesObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   SubsonicIndexes result;
   result.lastModified = indexesObject["lastModified"].get_int64();
-  result.ignoredArtilcles = indexesObject["ignoredArticles"].get_string();
+  result.ignoredArticles = indexesObject["ignoredArticles"].get_string();
 
   simdjson::dom::array indexArray;
   error = indexesObject["index"].get(indexArray);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
-  for (auto obj : indexArray) {
+  for (auto obj : indexArray)
+  {
     SubsonicIndexes::SubsonicIndex index;
     index.name = obj["name"].get_string();
     simdjson::dom::array artistsArray;
     error = obj["artist"].get(artistsArray);
-    if (error) {
+    if (error)
+    {
       continue;
     }
-    for (auto artist : artistsArray) {
+    for (auto artist : artistsArray)
+    {
       index.artist.emplace_back(SubsonicIndexes::SubsonicIndex::Artist{
           .id = artist["id"].get_string(),
           .name = stringViewToJuceString(artist["name"].get_string()),
@@ -106,50 +123,59 @@ SubsonicIndexes ParseJson::getIndexes(const juce::String &json) {
   return result;
 }
 
-void ParseJson::getMusicDirectory(const juce::String &json) {
+void ParseJson::getMusicDirectory(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 }
 
-std::vector<Genre> ParseJson::getGenres(const juce::String &json) {
+std::vector<Genre> ParseJson::getGenres(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object genresObject;
   error = responceObject["genres"].get(genresObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::array genreArray;
   error = genresObject["genre"].get(genreArray);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   std::vector<Genre> result;
-  for (auto obj : genreArray) {
+  for (auto obj : genreArray)
+  {
     result.push_back(
         Genre{.value = stringViewToJuceString(obj["value"].get_string()),
               .songCount = obj["songCount"].get_int64(),
@@ -159,23 +185,27 @@ std::vector<Genre> ParseJson::getGenres(const juce::String &json) {
   return result;
 }
 
-Artists ParseJson::getArtists(const juce::String &json) {
+Artists ParseJson::getArtists(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object artistsObject;
   error = responceObject["artists"].get(artistsObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
@@ -184,42 +214,49 @@ Artists ParseJson::getArtists(const juce::String &json) {
 
   simdjson::dom::array indexArray;
   error = artistsObject["index"].get(indexArray);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   artists.index.resize(indexArray.size());
-  for (int i = 0; auto obj : indexArray) {
+  for (int i = 0; auto obj : indexArray)
+  {
     artists.index[i++].name = obj["name"].get_string();
   }
 
   return artists;
 }
 
-Artist ParseJson::getArtist(const juce::String &json) {
+Artist ParseJson::getArtist(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object artistObject;
   error = responceObject["artist"].get(artistObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::array albumArray;
   error = artistObject["album"].get(albumArray);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
@@ -228,12 +265,14 @@ Artist ParseJson::getArtist(const juce::String &json) {
   return {};
 }
 
-Album ParseJson::getAlbum(const juce::String &json) {
+Album ParseJson::getAlbum(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
@@ -246,35 +285,41 @@ Album ParseJson::getAlbum(const juce::String &json) {
   return {};
 }
 
-Song ParseJson::getSong(const juce::String &json) {
+Song ParseJson::getSong(const juce::String &json)
+{
   // Create the URL object
   simdjson::dom::parser parser;
   simdjson::dom::object object;
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object songObject;
   error = responceObject["song"].get(songObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::array artistsArray;
   error = songObject["artists"].get(artistsArray);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   std::vector<IdName> artists;
-  for (auto a : artistsArray) {
+  for (auto a : artistsArray)
+  {
     artists.push_back(
         IdName{.id = a["id"].get_string(),
                .name = stringViewToJuceString(a["name"].get_string())});
@@ -282,12 +327,14 @@ Song ParseJson::getSong(const juce::String &json) {
 
   simdjson::dom::array albumArtistsArray;
   error = songObject["albumArtists"].get(albumArtistsArray);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   std::vector<IdName> albumArtists;
-  for (auto a : albumArtistsArray) {
+  for (auto a : albumArtistsArray)
+  {
     albumArtists.push_back(
         IdName{.id = a["id"].get_string(),
                .name = stringViewToJuceString(a["name"].get_string())});
@@ -321,86 +368,88 @@ Song ParseJson::getSong(const juce::String &json) {
       .musicBrainzId = songObject["musicBrainzId"].get_string()};
 }
 
-ArtistInfo ParseJson::getArtistInfo2(const juce::String &json) {
+ArtistInfo ParseJson::getArtistInfo2(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   return {};
 }
 
-void ParseJson::getAlbumInfo2(const juce::String& json)
+void ParseJson::getAlbumInfo2(const juce::String &json)
 {
-  
 }
 
-void ParseJson::getSimilarSongs2(const juce::String& json)
+void ParseJson::getSimilarSongs2(const juce::String &json)
 {
-  
 }
 
-void ParseJson::getTopSongs(const juce::String& json)
+void ParseJson::getTopSongs(const juce::String &json)
 {
-  
 }
 
-void ParseJson::getAlbumList2(const juce::String& json)
+void ParseJson::getAlbumList2(const juce::String &json)
 {
-  
 }
 
 // Searching
-void ParseJson::search(const juce::String& json)
+void ParseJson::search(const juce::String &json)
 {
-  
 }
 
-void ParseJson::search2(const juce::String& json)
+void ParseJson::search2(const juce::String &json)
 {
-  
 }
 
-void ParseJson::search3(const juce::String& json)
+void ParseJson::search3(const juce::String &json)
 {
-  
 }
 
-std::vector<Song> ParseJson::getRandomSongs(const juce::String &json) {
+std::vector<Song> ParseJson::getRandomSongs(const juce::String &json)
+{
   simdjson::dom::parser parser;
   simdjson::dom::object object;
 
   auto error = parser.parse(json.toStdString()).get(object);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object responceObject;
   error = object["subsonic-response"].get(responceObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::object randomSongObject;
   error = responceObject["randomSongs"].get(randomSongObject);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   simdjson::dom::array songList;
   error = randomSongObject["song"].get(songList);
-  if (error) {
+  if (error)
+  {
     jassertfalse;
   }
 
   std::vector<Song> resultList(songList.size());
-  for (int i = 0; auto song : songList) {
+  for (int i = 0; auto song : songList)
+  {
     simdjson::dom::object songObject;
     auto songError = song.get(songObject);
-    if (!error) {
+    if (!error)
+    {
       resultList[i++] = Song{
           .id = songObject["id"].get_string(),
           .albumId = songObject["albumId"].get_string(),

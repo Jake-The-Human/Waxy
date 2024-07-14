@@ -33,7 +33,7 @@ void NowPlayingComponent::paint(juce::Graphics &g)
 {
     auto area = getLocalBounds();
     g.setColour(juce::Colours::green);
-    g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNERN_RADIUS);
+    g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNER_RADIUS);
     Song curSong = waxyState_->getCurrentSong();
     currentSongLabel_.setText("Curent Song:" + curSong.title, juce::dontSendNotification);
 }

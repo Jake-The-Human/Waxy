@@ -17,7 +17,7 @@ void ProfileComponent::paint(juce::Graphics &g) {
   auto area = getLocalBounds();
   area.reduce(4, 4);
   g.setColour(juce::Colours::ivory);
-  g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNERN_RADIUS);
+  g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNER_RADIUS);
   if (isGonicConnected) {
     checkConnection.setButtonText("Connected to GONIC!!!!! Know matter how are "
                                   "you try you can't stop us now....");

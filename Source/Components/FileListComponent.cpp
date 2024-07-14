@@ -17,7 +17,7 @@ void FileListComponent::paint(juce::Graphics &g)
     auto area = getLocalBounds();
     area.reduce(4, 4); // padding
     g.setColour(juce::Colours::ivory);
-    g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNERN_RADIUS);
+    g.fillRoundedRectangle(area.toFloat(), GuiConstant::CORNER_RADIUS);
 }
 void FileListComponent::resized()
 {

@@ -6,8 +6,8 @@
 #include <string_view>
 #include <vector>
 
-
-struct IdName {
+struct IdName
+{
     std::string_view id;
     juce::String name;
 };
@@ -86,15 +86,16 @@ struct Artists
 {
     struct IndexHelper
     {
-        struct Artist {
+        struct Artist
+        {
             std::string_view id;
             juce::String name;
-            int64_t albumCount;        
+            int64_t albumCount;
         };
         std::string_view name;
         std::vector<Artist> artist;
     };
-    
+
     std::string_view ignoredArticles;
     std::vector<IndexHelper> index;
 };
@@ -139,6 +140,6 @@ struct SubsonicIndexes
         std::vector<Artist> artist;
     };
     int64_t lastModified;
-    std::string_view ignoredArtilcles;
+    std::string_view ignoredArticles;
     std::vector<SubsonicIndex> index;
 };
