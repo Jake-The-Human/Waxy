@@ -151,6 +151,14 @@ void UrlJobs::stream(Callback callback, const std::string &id, int maxBitRate,
 {
   juce::StringPairArray queryParams;
   queryParams.set("id", id);
+  if (maxBitRate >= 0)
+  {
+    queryParams.set("maxBitRate", std::to_string(maxBitRate));
+  }
+  if (!format.empty())
+  {
+    queryParams.set("format", format);
+  }
   UrlRequests::getInstance()->addJob(
       new UrlJob("stream", "stream", queryParams, callback),
       true);
