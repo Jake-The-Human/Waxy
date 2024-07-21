@@ -40,5 +40,9 @@ void ProfileComponent::resized() {
 
 void ProfileComponent::urlCallback(const juce::String& json) {
   isGonicConnected = ParseJson::ping(json);
-  checkConnection.repaint(checkConnection.getScreenX(), checkConnection.getScreenY(), checkConnection.getWidth(), checkConnection.getHeight());
+  juce::MessageManager::callAsync([this]()
+  {
+      // Update or access GUI components here
+    checkConnection.repaint(checkConnection.getScreenX(), checkConnection.getScreenY(), checkConnection.getWidth(), checkConnection.getHeight());
+  });
 }
