@@ -12,6 +12,8 @@ enum TransportState
     Stopped,
     Starting,
     Playing,
+    Pausing,
+    Paused,
     Stopping
 };
 
@@ -45,6 +47,5 @@ private:
     std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
     std::unique_ptr<juce::BufferingAudioReader> audioReader;
     juce::AudioFormatManager formatManager;
-    std::unique_ptr<juce::MemoryAudioSource> audioSource;
     juce::AudioTransportSource transportSource;
 };

@@ -51,6 +51,12 @@ void WaxyState::changeState(TransportState newState)
 
         case Playing:
             break;
+        case Pausing:
+            transportSource.stop();
+            break;
+
+        case Paused:
+            break;
 
         case Stopping:
             transportSource.stop();
