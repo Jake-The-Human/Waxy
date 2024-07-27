@@ -34,7 +34,7 @@ public:
     Song getCurrentSong() const { return currentSong_; }
 
     juce::AudioTransportSource &getTransportSource() { return transportSource; }
-    std::unique_ptr<juce::AudioFormatReaderSource> &getReaderSource() { return readerSource; }
+    // std::unique_ptr<juce::AudioFormatReaderSource> &getReaderSource() { return readerSource; }
 
     void updateSongQ(std::unique_ptr<juce::InputStream> stream);
 private:
@@ -44,6 +44,5 @@ private:
     TransportState state{TransportState::Stopped};
     juce::AudioFormatManager formatManager;
     std::unique_ptr<juce::MemoryAudioSource> audioSource;
-    std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
     juce::AudioTransportSource transportSource;
 };

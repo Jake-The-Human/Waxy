@@ -76,10 +76,13 @@ if (reader != nullptr)
 
   if (reader->read(&buffer, 0, (int)numSamples, 0, true, true))
   {
-    // callbackInternal(buffer);
-    DBG(buffer.getNumSamples());
+    transportSource.stop();
+    if (audioSource != nullptr){
+        audioSource->releaseResources();}
+        transportSource.releaseResources();
     audioSource = std::make_unique<juce::MemoryAudioSource>(buffer, true);
     transportSource.setSource(audioSource.get());
+    transportSource.start();
   }
   delete reader;
 }

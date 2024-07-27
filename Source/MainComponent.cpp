@@ -58,7 +58,7 @@ void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& buffe
 
     // Right now we are not producing any data, in which case we need to clear the buffer
     // (to prevent the output of random noise)
-    if (waxyState_->getReaderSource().get() == nullptr)
+    if (!waxyState_->getTransportSource().isPlaying())
     {
         bufferToFill.clearActiveBufferRegion();
         return;
