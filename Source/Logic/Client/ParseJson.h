@@ -2,7 +2,7 @@
 
 #include <JuceHeader.h>
 
-#include "Song.h"
+#include "Logic/Song.h"
 
 // // for more info check this out B^)
 // // https://www.subsonic.org/pages/api.jsp

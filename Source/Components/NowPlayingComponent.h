@@ -2,7 +2,7 @@
 
 #include <JuceHeader.h>
 #include <memory>
-#include "../Logic/WaxyState.h"
+#include "Logic/WaxyState.h"
 
 class NowPlayingComponent : public juce::Component,
                        public juce::ChangeListener,

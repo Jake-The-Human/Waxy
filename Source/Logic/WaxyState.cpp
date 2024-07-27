@@ -1,5 +1,5 @@
 #include "WaxyState.h"
-#include "Logic/UrlJobs.h"
+#include "Client/UrlJobs.h"
 
 WaxyState::~WaxyState()
 {

@@ -2,7 +2,6 @@
 
 #include "Components/PlaylistBoxModel.h"
 #include "GuiConstants.h"
-#include "Logic/UrlRequests.h"
 
 PlaylistComponent::PlaylistComponent(std::shared_ptr<WaxyState> waxyState) : nowPlayingView_(waxyState), playlistBoxModel_() {
     playlistViewTitle_.setText("Whats up next", juce::dontSendNotification);

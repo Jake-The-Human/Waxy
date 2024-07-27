@@ -1,7 +1,7 @@
 #include "NowPlayingComponent.h"
 #include "Logic/WaxyState.h"
 #include "GuiConstants.h"
-#include "Logic/UrlRequests.h"
+#include "Logic/Client/UrlRequests.h"
 
 constexpr auto PLAY = "Play";
 constexpr auto PAUSE = "Pause";

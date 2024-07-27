@@ -1,7 +1,7 @@
 #include "ProfileComponent.h"
 #include "GuiConstants.h"
-#include "Logic/UrlJobs.h"
-#include "Logic/ParseJson.h"
+#include "Logic/Client/UrlJobs.h"
+#include "Logic/Client/ParseJson.h"
 
 ProfileComponent::ProfileComponent() {
   searchBox_.setEditable(true);

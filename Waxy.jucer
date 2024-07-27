@@ -53,18 +53,18 @@
               file="Source/Settings/SettingsManager.h"/>
       </GROUP>
       <GROUP id="{508EA3E2-5B89-0389-384C-B03041F84AB7}" name="Logic">
-        <GROUP id="{3C649676-5C64-E6E3-2042-34A1A9B8EE9A}" name="Url">
-          <FILE id="r3zMfl" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/ParseJson.cpp"/>
-          <FILE id="vYBCFD" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/ParseJson.h"/>
-          <FILE id="itWC3A" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/UrlJob.cpp"/>
-          <FILE id="ujuEp6" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/UrlJob.h"/>
-          <FILE id="HzBDLX" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/UrlJobs.cpp"/>
-          <FILE id="LOyoQV" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/UrlJobs.h"/>
-          <FILE id="LppAJv" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/UrlRequests.cpp"/>
-          <FILE id="w9ZtDg" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/UrlRequests.h"/>
-          <FILE id="oI5dCL" name="UrlJobStream.cpp" compile="1" resource="0"
-                file="Source/Logic/UrlJobStream.cpp"/>
-          <FILE id="UxNptJ" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/UrlJobStream.h"/>
+        <GROUP id="{3C649676-5C64-E6E3-2042-34A1A9B8EE9A}" name="Client">
+          <FILE id="DI8HCM" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/Client/ParseJson.cpp"/>
+          <FILE id="ZYWgzm" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/Client/ParseJson.h"/>
+          <FILE id="s7PCrR" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/Client/UrlJob.cpp"/>
+          <FILE id="VXZtHh" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/Client/UrlJob.h"/>
+          <FILE id="CmgVC3" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/Client/UrlJobs.cpp"/>
+          <FILE id="s19cy3" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/Client/UrlJobs.h"/>
+          <FILE id="NHv9eq" name="UrlJobStream.cpp" compile="1" resource="0"
+                file="Source/Logic/Client/UrlJobStream.cpp"/>
+          <FILE id="y0moIe" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/Client/UrlJobStream.h"/>
+          <FILE id="adnUdG" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/Client/UrlRequests.cpp"/>
+          <FILE id="YSRAIa" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/Client/UrlRequests.h"/>
         </GROUP>
         <FILE id="EsoW3X" name="Song.h" compile="0" resource="0" file="Source/Logic/Song.h"/>
         <FILE id="bm5vj4" name="WaxyState.cpp" compile="1" resource="0" file="Source/Logic/WaxyState.cpp"/>
