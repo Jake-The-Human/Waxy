@@ -1,7 +1,5 @@
 #include "WaxyState.h"
 #include "Logic/UrlJobs.h"
-#include "juce_audio_basics/juce_audio_basics.h"
-#include "juce_audio_formats/juce_audio_formats.h"
 
 WaxyState::~WaxyState()
 {
@@ -63,27 +61,19 @@ void WaxyState::changeState(TransportState newState)
 }
 
 void WaxyState::updateSongQ(std::unique_ptr<juce::InputStream> stream) {
-DBG(formatManager.getWildcardForAllFormats());
-DBG(stream->getPosition());
-auto t = std::make_unique<juce::BufferedInputStream>(stream.get(), stream->getNumBytesRemaining(), false);
-auto* reader = formatManager.createReaderFor(std::move(t));
-if (reader != nullptr)
-{
-  DBG(reader->getFormatName());
-  const int numChannels = (int)reader->numChannels;
-  const int64_t numSamples = reader->lengthInSamples;
-  juce::AudioBuffer<float> buffer(numChannels, (int)numSamples);
-
-  if (reader->read(&buffer, 0, (int)numSamples, 0, true, true))
-  {
-    transportSource.stop();
-    if (audioSource != nullptr){
-        audioSource->releaseResources();}
-        transportSource.releaseResources();
-    audioSource = std::make_unique<juce::MemoryAudioSource>(buffer, true);
-    transportSource.setSource(audioSource.get());
+    DBG(formatManager.getWildcardForAllFormats());
+    DBG(stream->getPosition());
+    auto t = std::make_unique<juce::BufferedInputStream>(stream.get(), stream->getNumBytesRemaining(), false);
+    auto* reader = formatManager.createReaderFor(std::move(t));
+    if (reader != nullptr)
+    {
+    DBG(reader->getFormatName());
+    const int numChannels = (int)reader->numChannels;
+    const int64_t numSamples = reader->lengthInSamples;
+    auto newSource = std::make_unique<juce::AudioFormatReaderSource> (reader, true);
+    transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
     transportSource.start();
-  }
-  delete reader;
-}
+    readerSource.reset (newSource.release());
+
+    }
 }
