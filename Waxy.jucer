@@ -53,20 +53,20 @@
               file="Source/Settings/SettingsManager.h"/>
       </GROUP>
       <GROUP id="{508EA3E2-5B89-0389-384C-B03041F84AB7}" name="Logic">
-        <FILE id="oI5dCL" name="UrlJobStream.cpp" compile="1" resource="0"
-              file="Source/Logic/UrlJobStream.cpp"/>
-        <FILE id="UxNptJ" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/UrlJobStream.h"/>
-        <FILE id="r3zMfl" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/ParseJson.cpp"/>
-        <FILE id="vYBCFD" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/ParseJson.h"/>
+        <GROUP id="{3C649676-5C64-E6E3-2042-34A1A9B8EE9A}" name="Url">
+          <FILE id="r3zMfl" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/ParseJson.cpp"/>
+          <FILE id="vYBCFD" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/ParseJson.h"/>
+          <FILE id="itWC3A" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/UrlJob.cpp"/>
+          <FILE id="ujuEp6" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/UrlJob.h"/>
+          <FILE id="HzBDLX" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/UrlJobs.cpp"/>
+          <FILE id="LOyoQV" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/UrlJobs.h"/>
+          <FILE id="LppAJv" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/UrlRequests.cpp"/>
+          <FILE id="w9ZtDg" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/UrlRequests.h"/>
+          <FILE id="oI5dCL" name="UrlJobStream.cpp" compile="1" resource="0"
+                file="Source/Logic/UrlJobStream.cpp"/>
+          <FILE id="UxNptJ" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/UrlJobStream.h"/>
+        </GROUP>
         <FILE id="EsoW3X" name="Song.h" compile="0" resource="0" file="Source/Logic/Song.h"/>
-        <FILE id="Z6Vphl" name="AudioStream.cpp" compile="1" resource="0" file="Source/Logic/AudioStream.cpp"/>
-        <FILE id="qydRP8" name="AudioStream.h" compile="0" resource="0" file="Source/Logic/AudioStream.h"/>
-        <FILE id="itWC3A" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/UrlJob.cpp"/>
-        <FILE id="ujuEp6" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/UrlJob.h"/>
-        <FILE id="HzBDLX" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/UrlJobs.cpp"/>
-        <FILE id="LOyoQV" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/UrlJobs.h"/>
-        <FILE id="LppAJv" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/UrlRequests.cpp"/>
-        <FILE id="w9ZtDg" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/UrlRequests.h"/>
         <FILE id="bm5vj4" name="WaxyState.cpp" compile="1" resource="0" file="Source/Logic/WaxyState.cpp"/>
         <FILE id="teTvRz" name="WaxyState.h" compile="0" resource="0" file="Source/Logic/WaxyState.h"/>
       </GROUP>
