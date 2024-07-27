@@ -34,10 +34,7 @@ juce::ThreadPoolJob::JobStatus UrlJob::runJob()
   // }
 
   juce::String headers = "Content-Type: application/json";
-  int timeOutMs = 30000; // Timeout in milliseconds
   juce::StringPairArray responseHeaders;
-  int statusCode = 0;
-  int numRedirectsToFollow = 5; // Number of redirects to follow
 
   juce::URL::InputStreamOptions options(juce::URL::ParameterHandling::inAddress);
 
@@ -48,7 +45,6 @@ juce::ThreadPoolJob::JobStatus UrlJob::runJob()
   {
     response = stream->readEntireStreamAsString();
     DBG("Response: " + response);
-    DBG("Status code: " + juce::String(statusCode));
 
     // Print response headers
     for (int i = 0; i < responseHeaders.size(); ++i)
@@ -69,73 +65,6 @@ juce::ThreadPoolJob::JobStatus UrlJob::runJob()
   else
   {
     callbackInternal(response);
-  }
-
-  return juce::ThreadPoolJob::JobStatus::jobHasFinished;
-}
-
-
-UrlJobStream::UrlJobStream(const juce::String &jobName, const juce::String &request, const juce::StringPairArray &queryParams, std::function<void(juce::AudioBuffer<std::byte>)> callback) : juce::ThreadPoolJob(jobName),
-                                                                                                                                                                         requestType(request),
-                                                                                                                                                                         queryParamsInternal(queryParams),
-                                                                                                                                                                         callbackInternal(callback)
-{
-  queryParamsInternal.set("u", "admin");
-  queryParamsInternal.set("p", "admin");
-  queryParamsInternal.set("c", "Waxy"); // A unique string identifying the client application.
-}
-
-juce::ThreadPoolJob::JobStatus UrlJobStream::runJob()
-{
-  juce::URL urlObj("http://localhost:4747/rest/" + requestType);
-  urlObj = urlObj.withParameters(queryParamsInternal);
-
-  // Not sure if we need this so i put here before i start remove prev impl
-  // Add POST data if provided
-  // if (!postData.isEmpty())
-  // {
-  //   url = url.withPOSTData(postData);
-  // }
-
-  juce::String headers = "Content-Type: application/json";
-  int timeOutMs = 30000; // Timeout in milliseconds
-  juce::StringPairArray responseHeaders;
-  int statusCode = 0;
-  int numRedirectsToFollow = 5; // Number of redirects to follow
-
-  juce::URL::InputStreamOptions options(juce::URL::ParameterHandling::inAddress);
-
-  std::unique_ptr<juce::InputStream> stream = urlObj.createInputStream(options);
-  juce::String response;
-  std::unique_ptr<juce::AudioBuffer<std::byte>> buffer;
-
-  if (stream != nullptr)
-  {
-    auto response = stream->readString();
-    buffer = std::make_unique<juce::AudioBuffer<std::byte>>(2, stream->getNumBytesRemaining());
-    stream->read((void*)buffer->getArrayOfWritePointers(), (size_t)stream->getNumBytesRemaining());
-    DBG("Response: " + response);
-    DBG("Status code: " + juce::String(statusCode));
-
-    // Print response headers
-    for (int i = 0; i < responseHeaders.size(); ++i)
-    {
-      DBG(responseHeaders.getAllKeys()[i] + ": " +
-          responseHeaders.getAllValues()[i]);
-    }
-  }
-  else
-  {
-    DBG("Failed to create input stream!");
-  }
-
-  if (response.isEmpty())
-  {
-    juce::Logger::writeToLog("Failed to fetch URL: " + requestType);
-  }
-  else
-  {
-    // callbackInternal(*buffer);
   }
 
   return juce::ThreadPoolJob::JobStatus::jobHasFinished;

@@ -1,6 +1,7 @@
 #include "UrlJobs.h"
 
 #include "UrlJob.h"
+#include "UrlJobStream.h"
 #include "UrlRequests.h"
 
 void UrlJobs::ping(Callback callback)
@@ -112,12 +113,12 @@ void UrlJobs::getAlbumInfo2(Callback callback, const std::string &id) {
 
   UrlRequests::getInstance()->addJob(
       new UrlJob("getAlbumInfo2", "getAlbumInfo2", queryParams, callback), true);
-  
+
 }
 
 void UrlJobs::getSimilarSongs2(Callback callback, const std::string &id,
                                int count) {
-  
+
   juce::StringPairArray queryParams;
   queryParams.set("id", id);
 
@@ -127,7 +128,7 @@ void UrlJobs::getSimilarSongs2(Callback callback, const std::string &id,
 
 void UrlJobs::getTopSongs(Callback callback, const std::string &artistName,
                           int count) {
-  
+
   juce::StringPairArray queryParams;
   UrlRequests::getInstance()->addJob(
       new UrlJob("getTopSongs", "getTopSongs", queryParams, callback), true);
@@ -151,17 +152,17 @@ void UrlJobs::search(Callback callback, const std::string &artist, const std::st
 
   UrlRequests::getInstance()->addJob(
       new UrlJob("search", "search", queryParams, callback), true);
-  
+
 }
 
 void UrlJobs::search2(Callback callback, const std::string &query, int artistCount,
                       int artistOffset, int albumCount, int songCount,
                       int songOffset, const std::string &musicFilderId) {
   juce::StringPairArray queryParams;
-  
+
   UrlRequests::getInstance()->addJob(
       new UrlJob("search2", "search2", queryParams, callback), true);
-  
+
 }
 
 void UrlJobs::search3(Callback callback, int artistCount, int artistOffset,
@@ -171,7 +172,7 @@ void UrlJobs::search3(Callback callback, int artistCount, int artistOffset,
 
   UrlRequests::getInstance()->addJob(
       new UrlJob("search3", "search3", queryParams, callback), true);
-  
+
 }
 
 void UrlJobs::getRandomSongs(Callback callback, int numberOfSongs)
@@ -186,20 +187,20 @@ void UrlJobs::getRandomSongs(Callback callback, int numberOfSongs)
       true);
 }
 
-// void UrlJobs::stream(Callback callback, const std::string &id, int maxBitRate,
-//                      const std::string &format)
-// {
-//   juce::StringPairArray queryParams;
-//   queryParams.set("id", id);
-//   if (maxBitRate >= 0)
-//   {
-//     queryParams.set("maxBitRate", std::to_string(maxBitRate));
-//   }
-//   if (!format.empty())
-//   {
-//     queryParams.set("format", format);
-//   }
-//   UrlRequests::getInstance()->addJob(
-//       new UrlJobStream("stream", "stream", queryParams, callback),
-//       true);
-// }
+void UrlJobs::stream(StreamCallback callback, const std::string &id, int maxBitRate,
+                     const std::string &format)
+{
+  juce::StringPairArray queryParams;
+  queryParams.set("id", id);
+  if (maxBitRate >= 0)
+  {
+    queryParams.set("maxBitRate", std::to_string(maxBitRate));
+  }
+  if (!format.empty())
+  {
+    queryParams.set("format", format);
+  }
+  UrlRequests::getInstance()->addJob(
+      new UrlJobStream("download", "download", queryParams, callback),
+      true);
+}

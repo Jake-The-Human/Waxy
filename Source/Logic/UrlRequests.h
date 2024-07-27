@@ -2,8 +2,6 @@
 
 #include <JuceHeader.h>
 
-#include "UrlJob.h"
-
 class UrlRequests
 {
 public:
@@ -11,9 +9,9 @@ public:
   ~UrlRequests() { clearSingletonInstance(); }
   UrlRequests() = default;
 
-  void addJob(UrlJob *job, bool deleteJobWhenFinished);
+  void addJob(juce::ThreadPoolJob *job, bool deleteJobWhenFinished);
 
 private:
-  static constexpr auto NUM_THREADS = 2;
+  static constexpr auto NUM_THREADS = 4;
   juce::ThreadPool threadPool{NUM_THREADS};
 };

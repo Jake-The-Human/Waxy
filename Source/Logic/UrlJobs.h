@@ -10,6 +10,7 @@
 namespace UrlJobs
 {
     using Callback = std::function<void(const juce::String &)>;
+    using StreamCallback = std::function<void(std::unique_ptr<juce::InputStream>)>;
 
     // system
     void ping(Callback callback);
@@ -45,6 +46,6 @@ namespace UrlJobs
     // Album/song lists
     void getRandomSongs(Callback callback, int numberOfSongs);
     // Media retrieval
-    void stream(Callback callback, const std::string &id, int maxBitRate = -1,
+    void stream(StreamCallback callback, const std::string &id, int maxBitRate = -1,
                 const std::string &format = "");
 } // namespace UrlJobs

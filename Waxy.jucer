@@ -53,6 +53,9 @@
               file="Source/Settings/SettingsManager.h"/>
       </GROUP>
       <GROUP id="{508EA3E2-5B89-0389-384C-B03041F84AB7}" name="Logic">
+        <FILE id="oI5dCL" name="UrlJobStream.cpp" compile="1" resource="0"
+              file="Source/Logic/UrlJobStream.cpp"/>
+        <FILE id="UxNptJ" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/UrlJobStream.h"/>
         <FILE id="r3zMfl" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/ParseJson.cpp"/>
         <FILE id="vYBCFD" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/ParseJson.h"/>
         <FILE id="EsoW3X" name="Song.h" compile="0" resource="0" file="Source/Logic/Song.h"/>
@@ -92,7 +95,8 @@
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_USE_OGGVORBIS="1" JUCE_USE_MP3AUDIOFORMAT="1"
+               JUCE_USE_LAME_AUDIO_FORMAT="1"/>
   <EXPORTFORMATS>
     <ANDROIDSTUDIO targetFolder="Builds/Android">
       <CONFIGURATIONS>
