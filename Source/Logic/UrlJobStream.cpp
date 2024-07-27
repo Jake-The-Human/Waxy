@@ -10,7 +10,7 @@
 
 #include "UrlJobStream.h"
 
-UrlJobStream::UrlJobStream(const juce::String &jobName, const juce::String &request, const juce::StringPairArray &queryParams, std::function<void(std::unique_ptr<juce::InputStream>)> callback) : juce::ThreadPoolJob(jobName),
+UrlJobStream::UrlJobStream(const juce::String &jobName, const juce::String &request, const juce::StringPairArray &queryParams, std::function<void(std::unique_ptr<juce::BufferedInputStream>)> callback) : juce::ThreadPoolJob(jobName),
                                                                                                                                                                                                  requestType(request),
                                                                                                                                                                                                  queryParamsInternal(queryParams),
                                                                                                                                                                                                  callbackInternal(callback)
@@ -18,12 +18,6 @@ UrlJobStream::UrlJobStream(const juce::String &jobName, const juce::String &requ
   queryParamsInternal.set("u", "admin");
   queryParamsInternal.set("p", "admin");
   queryParamsInternal.set("c", "Waxy"); // A unique string identifying the client application.
-
-    if (!formatManager.getNumKnownFormats())
-    {
-        formatManager.registerBasicFormats();
-    }
-
 }
 
 juce::ThreadPoolJob::JobStatus UrlJobStream::runJob()
@@ -34,24 +28,10 @@ juce::ThreadPoolJob::JobStatus UrlJobStream::runJob()
   juce::URL::InputStreamOptions options(juce::URL::ParameterHandling::inAddress);
 
   auto stream = urlObj.createInputStream(options);
-
   if (stream != nullptr)
   {
-
-    // auto* reader = formatManager.createReaderFor(std::move(stream));
-    // if (reader != nullptr)
-    // {
-    //   DBG(reader->getFormatName());
-    //   const int numChannels = (int)reader->numChannels;
-    //   const int64_t numSamples = reader->lengthInSamples;
-    //   juce::AudioBuffer<float> buffer(numChannels, (int)numSamples);
-
-    //   if (reader->read(&buffer, 0, (int)numSamples, 0, true, true))
-    //   {
-    //     callbackInternal(buffer);
-    //   }
-    // }
-    callbackInternal(std::move(stream));
+    // TODO: instead of using a callback probably should use a queue and another thread to deal wil play the audio file.
+    callbackInternal(std::make_unique<juce::BufferedInputStream>(stream.get(), stream->getNumBytesRemaining(), false));
   }
   else
   {

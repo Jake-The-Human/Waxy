@@ -10,7 +10,7 @@
 namespace UrlJobs
 {
     using Callback = std::function<void(const juce::String &)>;
-    using StreamCallback = std::function<void(std::unique_ptr<juce::InputStream>)>;
+    using StreamCallback = std::function<void(std::unique_ptr<juce::BufferedInputStream>)>;
 
     // system
     void ping(Callback callback);

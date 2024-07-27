@@ -42,11 +42,10 @@ void WaxyState::changeState(TransportState newState)
 
         case Starting:
 
-            UrlJobs::stream([this](std::unique_ptr<juce::InputStream> stream){ updateSongQ(std::move(stream)) ;}, "tr-32");
-
-
-            // transportSource.start();
-
+            UrlJobs::stream([this](std::unique_ptr<juce::BufferedInputStream> stream){
+                updateSongQ(std::move(stream));
+                transportSource.start();
+            }, "tr-32");
 
             break;
 
@@ -60,20 +59,13 @@ void WaxyState::changeState(TransportState newState)
     }
 }
 
-void WaxyState::updateSongQ(std::unique_ptr<juce::InputStream> stream) {
-    DBG(formatManager.getWildcardForAllFormats());
-    DBG(stream->getPosition());
-    auto t = std::make_unique<juce::BufferedInputStream>(stream.get(), stream->getNumBytesRemaining(), false);
-    auto* reader = formatManager.createReaderFor(std::move(t));
+void WaxyState::updateSongQ(std::unique_ptr<juce::BufferedInputStream> stream) {
+    auto* reader = formatManager.createReaderFor(std::move(stream));
     if (reader != nullptr)
     {
-    DBG(reader->getFormatName());
-    const int numChannels = (int)reader->numChannels;
-    const int64_t numSamples = reader->lengthInSamples;
-    auto newSource = std::make_unique<juce::AudioFormatReaderSource> (reader, true);
-    transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
-    transportSource.start();
-    readerSource.reset (newSource.release());
-
+        DBG("Playing a " + reader->getFormatName());
+        auto newSource = std::make_unique<juce::AudioFormatReaderSource> (reader, true);
+        transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
+        readerSource.reset (newSource.release());
     }
 }

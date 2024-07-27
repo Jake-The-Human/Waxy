@@ -36,7 +36,7 @@ public:
     juce::AudioTransportSource &getTransportSource() { return transportSource; }
     std::unique_ptr<juce::AudioFormatReaderSource> &getReaderSource() { return readerSource; }
 
-    void updateSongQ(std::unique_ptr<juce::InputStream> stream);
+    void updateSongQ(std::unique_ptr<juce::BufferedInputStream> stream);
 private:
     Song currentSong_;
     std::deque<Song> songQueue;
