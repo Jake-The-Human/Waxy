@@ -1,10 +1,20 @@
 #include "FileListComponent.h"
 
 #include "GuiConstants.h"
+#include "Logic/SubSonic/ParseJson.h"
+#include "Logic/SubSonic/UrlJobs.h"
 
 FileListComponent::FileListComponent()
 {
     tableModel_ = std::make_unique<FileListBoxModel>(songs_);
+
+    // UrlJobs::getArtists([this](const juce::String& json){
+    //     auto artists = ParseJson::getArtists(json);
+    //     for (const auto& artist : artists.index) {
+    //         for (const auto& song : artist)
+    //     }
+    // });
+
     tableListBox_.setModel(tableModel_.get());
     tableListBox_.getHeader().addColumn("Title", 1, 200);
     tableListBox_.getHeader().addColumn("Artist", 2, 200);

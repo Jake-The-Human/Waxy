@@ -1,6 +1,6 @@
 #include "MainComponent.h"
 #include "Logic/WaxyState.h"
-#include "Logic/Client/UrlRequests.h"
+#include "Logic/SubSonic/UrlRequests.h"
 #include <memory>
 
 //==============================================================================

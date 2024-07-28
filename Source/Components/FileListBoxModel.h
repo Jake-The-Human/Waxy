@@ -18,6 +18,8 @@ public:
     FileListBoxModel &operator=(const FileListBoxModel &) = default;
     FileListBoxModel &operator=(FileListBoxModel &&) = default;
 
+    void addSong(Song song) { songs_.push_back(song); }
+
     // juce::TableListBoxModel
     int getNumRows() override;
     void paintRowBackground(juce::Graphics &g, int rowNumber, int width, int height, bool rowIsSelected) override;

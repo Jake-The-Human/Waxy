@@ -1,7 +1,6 @@
 #include "NowPlayingComponent.h"
 #include "Logic/WaxyState.h"
 #include "GuiConstants.h"
-#include "Logic/Client/UrlRequests.h"
 
 constexpr auto PLAY = "Play";
 constexpr auto PAUSE = "Pause";
@@ -73,7 +72,7 @@ void NowPlayingComponent::buttonClicked(juce::Button *button)
         if (playButton_.getButtonText().compare(PLAY) && waxyState_->isPlaying())
         {
             playButton_.setButtonText(PAUSE);
-            waxyState_->changeState(TransportState::Stopping);
+            waxyState_->changeState(TransportState::Paused);
         }
         else if (playButton_.getButtonText().compare(PAUSE))
         {

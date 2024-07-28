@@ -8,8 +8,11 @@
   <MAINGROUP id="HVv5ie" name="Waxy">
     <GROUP id="{A36E92FC-E14E-3523-669A-AE8CA8BF3E4C}" name="Source">
       <GROUP id="{341BBD7D-A52D-B99F-200C-C0064C1179F8}" name="ThirdParty">
-        <FILE id="wrziqI" name="simdjson.cpp" compile="1" resource="0" file="Source/ThirdParty/simdjson.cpp"/>
-        <FILE id="TqurNz" name="simdjson.h" compile="0" resource="0" file="Source/ThirdParty/simdjson.h"/>
+        <FILE id="DrWQkY" name="simdjson.cpp" compile="1" resource="0" file="Source/ThirdParty/simdjson/simdjson.cpp"/>
+        <FILE id="flhHIo" name="simdjson.h" compile="0" resource="0" file="Source/ThirdParty/simdjson/simdjson.h"/>
+        <FILE id="BOBXCR" name="sqlite3.c" compile="1" resource="0" file="Source/ThirdParty/sqlite/sqlite3.c"/>
+        <FILE id="SPgcNI" name="sqlite3.h" compile="0" resource="0" file="Source/ThirdParty/sqlite/sqlite3.h"/>
+        <FILE id="tKdvyj" name="sqlite3ext.h" compile="0" resource="0" file="Source/ThirdParty/sqlite/sqlite3ext.h"/>
       </GROUP>
       <GROUP id="{6A742EEF-805B-6C59-5C6B-40CB8DC4FD98}" name="Components">
         <FILE id="XehGzX" name="DesktopComponent.cpp" compile="1" resource="0"
@@ -53,18 +56,22 @@
               file="Source/Settings/SettingsManager.h"/>
       </GROUP>
       <GROUP id="{508EA3E2-5B89-0389-384C-B03041F84AB7}" name="Logic">
-        <GROUP id="{3C649676-5C64-E6E3-2042-34A1A9B8EE9A}" name="Client">
-          <FILE id="DI8HCM" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/Client/ParseJson.cpp"/>
-          <FILE id="ZYWgzm" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/Client/ParseJson.h"/>
-          <FILE id="s7PCrR" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/Client/UrlJob.cpp"/>
-          <FILE id="VXZtHh" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/Client/UrlJob.h"/>
-          <FILE id="CmgVC3" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/Client/UrlJobs.cpp"/>
-          <FILE id="s19cy3" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/Client/UrlJobs.h"/>
-          <FILE id="NHv9eq" name="UrlJobStream.cpp" compile="1" resource="0"
-                file="Source/Logic/Client/UrlJobStream.cpp"/>
-          <FILE id="y0moIe" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/Client/UrlJobStream.h"/>
-          <FILE id="adnUdG" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/Client/UrlRequests.cpp"/>
-          <FILE id="YSRAIa" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/Client/UrlRequests.h"/>
+        <GROUP id="{FDC218AE-C630-6853-11A0-23E51780E85E}" name="LocalDB">
+          <FILE id="f8LjrD" name="LocalDB.cpp" compile="1" resource="0" file="Source/Logic/LocalDB/LocalDB.cpp"/>
+          <FILE id="FBPE4r" name="LocalDB.h" compile="0" resource="0" file="Source/Logic/LocalDB/LocalDB.h"/>
+        </GROUP>
+        <GROUP id="{3C649676-5C64-E6E3-2042-34A1A9B8EE9A}" name="SubSonic">
+          <FILE id="yett2k" name="ParseJson.cpp" compile="1" resource="0" file="Source/Logic/SubSonic/ParseJson.cpp"/>
+          <FILE id="e1Yon1" name="ParseJson.h" compile="0" resource="0" file="Source/Logic/SubSonic/ParseJson.h"/>
+          <FILE id="Bdu4lQ" name="UrlJob.cpp" compile="1" resource="0" file="Source/Logic/SubSonic/UrlJob.cpp"/>
+          <FILE id="V5CZob" name="UrlJob.h" compile="0" resource="0" file="Source/Logic/SubSonic/UrlJob.h"/>
+          <FILE id="NPNduE" name="UrlJobs.cpp" compile="1" resource="0" file="Source/Logic/SubSonic/UrlJobs.cpp"/>
+          <FILE id="sy8NHj" name="UrlJobs.h" compile="0" resource="0" file="Source/Logic/SubSonic/UrlJobs.h"/>
+          <FILE id="i5Hiln" name="UrlJobStream.cpp" compile="1" resource="0"
+                file="Source/Logic/SubSonic/UrlJobStream.cpp"/>
+          <FILE id="x9WVNi" name="UrlJobStream.h" compile="0" resource="0" file="Source/Logic/SubSonic/UrlJobStream.h"/>
+          <FILE id="rPtzsq" name="UrlRequests.cpp" compile="1" resource="0" file="Source/Logic/SubSonic/UrlRequests.cpp"/>
+          <FILE id="IK28sA" name="UrlRequests.h" compile="0" resource="0" file="Source/Logic/SubSonic/UrlRequests.h"/>
         </GROUP>
         <FILE id="EsoW3X" name="Song.h" compile="0" resource="0" file="Source/Logic/Song.h"/>
         <FILE id="bm5vj4" name="WaxyState.cpp" compile="1" resource="0" file="Source/Logic/WaxyState.cpp"/>

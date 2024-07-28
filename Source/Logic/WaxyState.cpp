@@ -1,5 +1,5 @@
 #include "WaxyState.h"
-#include "Client/UrlJobs.h"
+#include "SubSonic/UrlJobs.h"
 
 WaxyState::~WaxyState()
 {
@@ -56,6 +56,7 @@ void WaxyState::changeState(TransportState newState)
             break;
 
         case Paused:
+         transportSource.stop();
             break;
 
         case Stopping:
