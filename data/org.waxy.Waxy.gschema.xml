@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="waxy">
+	<schema id="org.waxy.Waxy" path="/org/waxy/Waxy/">
+	</schema>
+</schemalist>

@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 if [[ $1 == "run" ]]; then
     ./Builds/LinuxMakefile/build/Waxy

@@ -1,0 +1,6 @@
+data/org.waxy.Waxy.desktop.in
+data/org.waxy.Waxy.metainfo.xml.in
+data/org.waxy.Waxy.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
