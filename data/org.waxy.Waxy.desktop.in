@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=waxy
-Exec=waxy
-Icon=org.waxy.Waxy
-Terminal=false
-Type=Application
-Categories=GTK;
-StartupNotify=true
