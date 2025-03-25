@@ -1,0 +1,27 @@
+title = "PCM5102 config file"
+version = "1.0.0"
+
+[device_settings]
+manufacturer = "Texas Instruments"
+dac_chip = "PCM5102"
+channels = [2]
+bits_per_sample = [16, 24, 32]
+sampling_rates = [
+    8000,
+    11025,
+    16000,
+    22050,
+    41000,
+    48000,
+    88200,
+    96000,
+    176400,
+    192000,
+    352800,
+    384000,
+]
+
+[user_config]
+channels = 2
+bits_per_sample = 16
+sample_rate = 41000

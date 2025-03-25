@@ -133,8 +133,8 @@ enum {
 char const* string_desc_arr [] =
 {
     (const char[]) { 0x09, 0x04 }, // 0: is supported language is English (0x0409)
-    "PaniRCorp",                   // 1: Manufacturer
-    "MicNode",                     // 2: Product
+    "Flaky Shakespeare",           // 1: Manufacturer
+    "Waxy",                        // 2: Product
     NULL,                          // 3: Serials will use unique ID if possible
     "UAC2",                        // 4: Audio Interface
 

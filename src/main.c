@@ -36,6 +36,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <pico/audio_i2s.h>
+
 #include "bsp/board_api.h"
 #include "tusb.h"
 #include "usb_descriptors.h"

@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.30)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/tinyusb/hw/bsp/family_support.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/pico-extras/external/pico_extras_import.cmake)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -30,6 +31,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/tinyusb/src
 )
+
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/toml-c)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/pico-extras)
+target_compile_options(pico_audio_i2s INTERFACE -w)
+target_compile_options(pico_sd_card INTERFACE -w)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC toml pico_audio_i2s pico_sd_card)
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 23)
 
 # Configure compilation flags and libraries for the example without RTOS.
 # See the corresponding function in hw/bsp/FAMILY/family.cmake for details.
