@@ -4,7 +4,7 @@ version = "1.0.0"
 [device_settings]
 manufacturer = "Texas Instruments"
 dac_chip = "PCM5102"
-channels = [2]
+channels = [2] # If this chip supported mono it would look like [1, 2]
 bits_per_sample = [16, 24, 32]
 sampling_rates = [
     8000,
