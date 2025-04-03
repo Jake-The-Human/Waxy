@@ -1,0 +1,23 @@
+.pio_version 0
+.program i2s_pio
+
+.side_set 2 ; Allocate 2 bits for side-set (BCLK and WCLK)
+
+; NOTE: You set x and y register to the bit bit depth
+
+.wrap_target
+; Left Channel (WCLK = 0)
+l_ch:
+    out pins, 1  side 0b00 ; 1, MSB, BCLK = 0, WCLK = 0
+    jmp x-- l_ch side 0b10 ; 1, MSB, BCLK = 1, WCLK = 0
+    out pins, 1 side 0b01  ; X, LSB, BCLK = 0, WCLK = 1
+    nop         side 0b11  ; X, LSB, BCLK = 1, WCLK = 1
+
+; Right Channel (WCLK = 1)
+r_ch:
+    out pins, 1  side 0b01 ; 1, MSB, BCLK = 0, WCLK = 1
+    jmp y-- r_ch side 0b11 ; 1, MSB, BCLK = 1, WCLK = 1
+    out pins, 1  side 0b00 ; Y, LSB, BCLK = 0, WCLK = 0
+    nop          side 0b10 ; Y, LSB, BCLK = 1, WCLK = 0
+    
+.wrap
