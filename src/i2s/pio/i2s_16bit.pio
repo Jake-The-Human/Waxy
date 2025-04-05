@@ -1,0 +1,42 @@
+#ifndef I2S_H_
+#define I2S_H_
+
+#include "i2s_16bit.h"
+
+#include "pico/stdlib.h"
+#include "hardware/pio.h"
+#include "hardware/gpio.h"
+
+// Define the PIO instance and program
+extern const struct pio_program i2s_8bit_program;
+extern const struct pio_program i2s_16bit_program;
+extern const struct pio_program i2s_24bit_program;
+extern const struct pio_program i2s_32bit_program;
+
+void i2s_pins_init(int bclk_pin, int wclk_pin, int data_pin) {
+    // Initialize the GPIO pins
+    gpio_init(bclk_pin);
+    gpio_set_dir(bclk_pin, GPIO_OUT);   // BCLK as output
+
+    gpio_init(wclk_pin);
+    gpio_set_dir(wclk_pin, GPIO_OUT);   // WCLK as output
+
+    gpio_init(data_pin);
+    gpio_set_dir(data_pin, GPIO_OUT);   // Data pin as output
+}
+
+void i2s_pio_init(PIO pio, uint sm, uint offset) {
+    // Load the I2S program to the PIO state machine
+    pio_sm_put_blocking(pio, sm, i2s_16bit_program_instructions);
+    
+    // Configure the state machine for the I2S program
+    pio_sm_config c = i2s_16bit_program_get_default_config(offset);
+    
+    // Load the configuration into the state machine
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Start the state machine
+    pio_sm_exec(pio, sm, i2s_16bit_program_instructions);
+}
+
+#endif

@@ -1,0 +1,8 @@
+.pio_version 0
+.program i2s_bit
+
+.side_set 2
+
+.wrap_target
+	out pins, 1 side 0b00
+.wrap

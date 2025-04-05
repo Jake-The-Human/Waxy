@@ -1,0 +1,30 @@
+.pio_version 0
+.program i2s_16bit
+
+.side_set 2 ; Allocate 2 bits for side-set (BCLK and WCLK)
+
+.wrap_target
+    ; Left Channel (WCLK = 0)
+left_channel:
+    out pins, 1 side 0b00 ; 1, MSB, BCLK = 1, WCLK = 0
+    out pins, 1 side 0b10 ; 2,      BCLK = 0, WCLK = 0
+    out pins, 1 side 0b00 ; 15
+    out pins, 1 side 0b11 ; 16, LSB, BCLK = 1, WCLK = 1
+    ; Right Channel (WCLK = 1)
+    out pins, 1 side 0b01 ; 1, MSB, BCLK = 0, WCLK = 1
+    out pins, 1 side 0b11 ; 2,      BCLK = 1, WCLK = 1
+    out pins, 1 side 0b01 ; 3
+    out pins, 1 side 0b11 ; 4
+    out pins, 1 side 0b01 ; 5
+    out pins, 1 side 0b11 ; 6
+    out pins, 1 side 0b01 ; 7
+    out pins, 1 side 0b11 ; 8
+    out pins, 1 side 0b01 ; 9
+    out pins, 1 side 0b11 ; 10
+    out pins, 1 side 0b01 ; 11
+    out pins, 1 side 0b11 ; 12
+    out pins, 1 side 0b01 ; 13
+    out pins, 1 side 0b11 ; 14
+    out pins, 1 side 0b01 ; 15
+    out pins, 1 side 0b10 ; 16, LSB, BCLK = 1, WCLK = 0
+.wrap
