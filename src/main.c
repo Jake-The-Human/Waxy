@@ -25,6 +25,8 @@
  *
  */
 
+#include "i2s/i2s.h"
+
 #include <stdint.h>
 
 #include "bsp/board_api.h"
@@ -51,6 +53,8 @@ int main(void) {
 #if (CFG_TUSB_MCU == OPT_MCU_RP2040)
   stdio_init_all();
 #endif
+
+  i2s_configure_pio(get_pio(), 9, 32, 41000);
 
   TU_LOG1("WAXY is running!!!!!\n");
 

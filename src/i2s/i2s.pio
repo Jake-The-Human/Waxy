@@ -1,23 +1,48 @@
 .pio_version 0
-.program i2s_pio
 
+
+.program i2s_pio_out
 .side_set 2 ; Allocate 2 bits for side-set (BCLK and WCLK)
 
-; NOTE: You set x and y register to the bit bit depth
+set pindirs, 1 side 0b00; Set pin to output
 
-.wrap_target
+public entry_point:
+
+; Set x and y register to the bit bit depth
+    mov x, y     side 0b10 ; reset bit counter
 ; Left Channel (WCLK = 0)
 l_ch:
-    out pins, 1  side 0b00 ; 1, MSB, BCLK = 0, WCLK = 0
-    jmp x-- l_ch side 0b10 ; 1, MSB, BCLK = 1, WCLK = 0
-    out pins, 1 side 0b01  ; X, LSB, BCLK = 0, WCLK = 1
-    nop         side 0b11  ; X, LSB, BCLK = 1, WCLK = 1
+    out pins, 1  side 0b00 ; BCLK = 0, WCLK = 0
+    jmp x-- l_ch side 0b10 ; BCLK = 1, WCLK = 0
+    out pins, 1  side 0b01 ; BCLK = 0, WCLK = 1
+    mov x, y     side 0b11 ; reset bit counter
 
 ; Right Channel (WCLK = 1)
 r_ch:
-    out pins, 1  side 0b01 ; 1, MSB, BCLK = 0, WCLK = 1
-    jmp y-- r_ch side 0b11 ; 1, MSB, BCLK = 1, WCLK = 1
-    out pins, 1  side 0b00 ; Y, LSB, BCLK = 0, WCLK = 0
-    nop          side 0b10 ; Y, LSB, BCLK = 1, WCLK = 0
-    
-.wrap
+    out pins, 1  side 0b01 ; BCLK = 0, WCLK = 1
+    jmp x-- r_ch side 0b11 ; BCLK = 1, WCLK = 1
+    out pins, 1  side 0b00 ; BCLK = 0, WCLK = 0
+
+% c-sdk {
+static inline void pio_i2s_out_program_init(PIO pio, uint sm, uint offset, uint data_pin, uint clock_pin_base, uint bits, bool swap) {
+    pio_gpio_init(pio, data_pin);
+    pio_gpio_init(pio, clock_pin_base);
+    pio_gpio_init(pio, clock_pin_base + 1);
+
+    pio_sm_config sm_config = pio_i2s_out_program_get_default_config(offset);
+
+    sm_config_set_out_pins(&sm_config, data_pin, 1);
+    sm_config_set_sideset_pins(&sm_config, clock_pin_base);
+    sm_config_set_out_shift(&sm_config, false, true, (bits <= 16) ? 2 * bits : bits);
+    sm_config_set_fifo_join(&sm_config, PIO_FIFO_JOIN_TX);
+
+    pio_sm_init(pio, sm, offset, &sm_config);
+
+    pio_sm_set_consecutive_pindirs(pio, sm, data_pin, 1, true);
+    pio_sm_set_consecutive_pindirs(pio, sm, clock_pin_base, 2, true);
+    pio_sm_set_set_pins(pio, sm, data_pin, 1);
+    pio_sm_set_set_pins(pio, sm, clock_pin_base, 2);
+
+    pio_sm_exec(pio, sm, pio_encode_set(pio_y, bits - 2));
+} 
+%}

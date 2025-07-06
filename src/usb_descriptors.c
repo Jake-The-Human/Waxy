@@ -131,10 +131,12 @@ uint8_t const desc_configuration[] = {
     // Interface number, string index, EP Out & EP In address, EP size
     TUD_AUDIO_DAC_DESCRIPTOR(2, EPNUM_AUDIO_OUT),
 
+#if CFG_TUD_CDC
     // CDC: Interface number, string index, EP notification address and size, EP
     // data address (out, in) and size.
-    TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 5, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT,
-                       EPNUM_CDC_IN, 64)};
+    TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 5, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT, EPNUM_CDC_IN, 64)
+#endif
+};
 
 // Invoked when received GET CONFIGURATION DESCRIPTOR
 // Application return pointer to descriptor

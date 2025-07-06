@@ -25,18 +25,25 @@
  */
 
 #include "dac_config.h"
+#include "i2s/i2s.h"
 
 #include "bsp/board_api.h"
 #include "common.h"
 #include "tusb.h"
 #include "usb_descriptors.h"
 
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
 //--------------------------------------------------------------------+
 // MACRO CONSTANT TYPEDEF PROTOTYPES
 //--------------------------------------------------------------------+
+static struct {
+  int sampling_rate;
+  int channel_count;
+  int bit_depth;
+} DAC_CONFIG = {.sampling_rate = 41000, .channel_count = 2, .bit_depth = 16};
 
 uint32_t blink_interval_ms = BLINK_NOT_MOUNTED;
 
@@ -53,8 +60,7 @@ int spk_data_size;
 // Resolution per format
 const uint8_t resolutions_per_format[CFG_TUD_AUDIO_FUNC_1_N_FORMATS] = {
     CFG_TUD_AUDIO_FUNC_1_FORMAT_1_RESOLUTION_RX,
-    CFG_TUD_AUDIO_FUNC_1_FORMAT_2_RESOLUTION_RX,
-    CFG_TUD_AUDIO_FUNC_1_FORMAT_3_RESOLUTION_RX};
+    CFG_TUD_AUDIO_FUNC_1_FORMAT_2_RESOLUTION_RX};
 // Current resolution, update on format change
 uint8_t current_resolution;
 
@@ -66,9 +72,10 @@ tud_audio_clock_get_request(uint8_t rhport,
 
   if (request->bControlSelector == AUDIO_CS_CTRL_SAM_FREQ) {
     if (request->bRequest == AUDIO_CS_REQ_CUR) {
-      TU_LOG1("Clock get current freq %" PRIu32 "\r\n", DAC_CONFIG.sampling_rate);
+      TU_LOG1("Clock get current freq %u\r\n", DAC_CONFIG.sampling_rate);
 
-      audio_control_cur_4_t curf = {(int32_t)tu_htole32(DAC_CONFIG.sampling_rate)};
+      audio_control_cur_4_t curf = {
+          (int32_t)tu_htole32(DAC_CONFIG.sampling_rate)};
       return tud_audio_buffer_and_schedule_control_xfer(
           rhport, (tusb_control_request_t const *)request, &curf, sizeof(curf));
     } else if (request->bRequest == AUDIO_CS_REQ_RANGE) {
@@ -113,9 +120,11 @@ static bool tud_audio_clock_set_request(uint8_t rhport,
   if (request->bControlSelector == AUDIO_CS_CTRL_SAM_FREQ) {
     TU_VERIFY(request->wLength == sizeof(audio_control_cur_4_t));
 
-    DAC_CONFIG.sampling_rate = (uint32_t)((audio_control_cur_4_t const *)buf)->bCur;
+    DAC_CONFIG.sampling_rate =
+        (uint64_t)((audio_control_cur_4_t const *)buf)->bCur;
 
-    TU_LOG1("Clock set current freq: %" PRIu32 "\r\n", DAC_CONFIG.sampling_rate);
+    TU_LOG1("Clock set current freq: %u\r\n",
+            DAC_CONFIG.sampling_rate);
 
     return true;
   } else {
@@ -292,6 +301,9 @@ bool tud_audio_rx_done_pre_read_cb(uint8_t rhport, uint16_t n_bytes_received,
 
   spk_data_size = tud_audio_read(spk_buf, n_bytes_received);
   // tud_audio_write(spk_buf, n_bytes_received);
+  for (int i = 0; i < spk_data_size; ++i) {
+    i2s_put_32bits(get_pio(), spk_buf[i]);
+  }
 
   return true;
 }

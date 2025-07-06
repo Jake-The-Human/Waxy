@@ -22,7 +22,7 @@
             "name": "default",
             "configurePreset": "default",
             "nativeToolOptions": [
-                "DEBUG=1",
+                "DEBUG=2",
                 "LOG=1",
                 "BOARD=feather_rp2040_max3421"
             ]

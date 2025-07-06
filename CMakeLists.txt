@@ -24,12 +24,15 @@ add_executable(${PROJECT_NAME})
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY C_STANDARD 23)
 
+pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/i2s/i2s.pio)
+
 target_sources(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/cdc_app.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/uac2_app.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/usb_descriptors.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/dac_config.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/i2s/i2s.c
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -38,12 +41,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     # ${CMAKE_CURRENT_SOURCE_DIR}/toml-c
 )
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/toml-c)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/pico-extras)
-target_compile_options(pico_audio_i2s INTERFACE -w)
-target_compile_options(pico_sd_card INTERFACE -w)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/toml-c)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/pico-extras)
+# target_compile_options(pico_sd_card INTERFACE -w)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC pico_audio pico_audio_i2s pico_sd_card)
+target_link_libraries(${PROJECT_NAME} PUBLIC pico_stdlib hardware_pio)
 
 # Configure compilation flags and libraries for the example without RTOS.
 # See the corresponding function in hw/bsp/FAMILY/family.cmake for details.

@@ -24,6 +24,8 @@
  *
  */
 
+#if CFG_TUD_CDC
+
 #include "bsp/board_api.h"
 #include "tusb.h"
 #include "common.h"
@@ -70,3 +72,5 @@ void tud_cdc_rx_cb(uint8_t itf)
     }
   }
 }
+
+#endif
